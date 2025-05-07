@@ -9,7 +9,7 @@
 
 namespace cabrium {
 
-class CABRIUM_API Log {
+class CBRM_API Log {
 public:
 
 	//Log();

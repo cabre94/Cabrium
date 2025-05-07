@@ -1,11 +1,11 @@
 #pragma once
 
-#ifdef CABRIUM_PLATFORM_WINDOWS
-	#ifdef CABRIUM_BUILD_DLL
-		#define CABRIUM_API __declspec(dllexport)
+#ifdef CBRM_PLATFORM_WINDOWS
+	#ifdef CBRM_BUILD_DLL
+		#define CBRM_API __declspec(dllexport)
 	#else
 		#define CABRIUM_API __declspec(dllimport)
-	#endif	// CABRIUM_BUILD_DLL
+	#endif	// CBRM_BUILD_DLL
 #else
 	#error Platform not supported
-#endif	// CABRIUM_PLATFORM_WINDOWS
+#endif	// CBRM_PLATFORM_WINDOWS

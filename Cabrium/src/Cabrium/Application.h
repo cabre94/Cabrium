@@ -4,7 +4,7 @@
 
 namespace cabrium {
 
-class CABRIUM_API Application {
+class CBRM_API Application {
 public:
 	Application();
 	virtual ~Application();
