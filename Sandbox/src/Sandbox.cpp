@@ -1,4 +1,3 @@
-
 #include "Cabrium.h"
 
 class Sandbox : public cabrium::Application {
