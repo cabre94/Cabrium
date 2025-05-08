@@ -1,5 +1,6 @@
 workspace "Cabrium"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -14,6 +15,8 @@ project "Cabrium"
 	location "Cabrium"
 	kind "SharedLib"
 	language "C++"
+
+	buildoptions { "/utf-8" }
 
 	targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir  ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -42,19 +45,20 @@ project "Cabrium"
 
 		postbuildcommands
 		{
-			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{MKDIR} ../bin/" .. outputdir .. "/Sandbox/"),
+			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/")
 		}
 
 	filter "configurations:Debug"
-		defines "CBRM_DEBUG"
+		defines "CABRIUM_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "CBRM_RELEASE"
+		defines "CABRIUM_RELEASE"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines "CBRM_DIST"
+		defines "CABRIUM_DIST"
 		symbols "On"
 
 
@@ -62,6 +66,8 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+
+	buildoptions { "/utf-8" }
 
 	targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir  ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -74,7 +80,7 @@ project "Sandbox"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include",
+		"Cabrium/vendor/spdlog/include",
 		"Cabrium/src"
 	}
 
@@ -94,13 +100,13 @@ project "Sandbox"
 		}
 
 	filter "configurations:Debug"
-		defines "CBRM_DEBUG"
+		defines "CABRIUM_DEBUG"
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "CBRM_RELEASE"
+		defines "CABRIUM_RELEASE"
 		symbols "On"
 
 	filter "configurations:Dist"
-		defines "CBRM_DIST"
+		defines "CABRIUM_DIST"
 		symbols "On"

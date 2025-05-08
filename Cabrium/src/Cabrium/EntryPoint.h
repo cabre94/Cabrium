@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef CABRIUM_PLATFORM_WINDOWS
+#ifdef CBRM_PLATFORM_WINDOWS
 
 extern cabrium::Application* cabrium::CreateApplication();
 
@@ -19,4 +19,4 @@ int main(int argc, char** argv) {
 	return 0;
 }
 
-#endif // CABRIUM_PLATFORM_WINDOWS
+#endif // CBRM_PLATFORM_WINDOWS
