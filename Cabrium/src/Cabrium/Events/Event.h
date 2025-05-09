@@ -13,9 +13,9 @@ enum class EventType {
     // Window events
     WindowClose,
     WindowResize,
-    WindowFocus,
-    WindowLostFocus,
-    WindowMoved,
+    // WindowFocus,
+    // WindowLostFocus,
+    // WindowMoved,
 
     // App events
     AppTick,
