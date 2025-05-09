@@ -1,15 +1,17 @@
 #include "Application.h"
 
+#include <cstdio>
+
 namespace cabrium {
 
-Application::Application() {
-}
+Application::Application() {}
 
-Application::~Application() {
-}
+Application::~Application() {}
 
 void Application::Run() {
-	while (true);
+
+    while (getchar() != 'q')
+        ;
 }
 
-} // namespace cabrium 
+} // namespace cabrium
