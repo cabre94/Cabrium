@@ -2,10 +2,17 @@
 
 class Sandbox : public cabrium::Application {
 public:
-	Sandbox() {}
-	~Sandbox() {}
+    Sandbox() {}
+    ~Sandbox() {}
 };
 
-cabrium::Application* cabrium::CreateApplication() {
-	return new Sandbox();
+cabrium::Application *cabrium::CreateApplication() {
+
+    WindowResizeEvent e(1280, 720);
+
+    if (e.IsInCategory(EventCategoryApplication)) {
+        CBRM_TRACE(e);
+    }
+
+    return new Sandbox();
 }
