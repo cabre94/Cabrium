@@ -11,7 +11,7 @@ class WindowCloseEvent : public Event {
 public:
     WindowCloseEvent() {}
 
-    DECL_EVENT_CLASS_TYPE(WindowCloseEvent)
+    DECL_EVENT_CLASS_TYPE(WindowClose)
     DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
 };
 
