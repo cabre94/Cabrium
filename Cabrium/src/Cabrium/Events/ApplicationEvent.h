@@ -7,6 +7,14 @@
 
 namespace cabrium {
 
+class WindowCloseEvent : public Event {
+public:
+    WindowCloseEvent() {}
+
+    DECL_EVENT_CLASS_TYPE(WindowCloseEvent)
+    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
+};
+
 class WindowResizeEvent : public Event {
 public:
     WindowResizeEvent(uint32_t width_, uint32_t height_) : width(width_), height(height_) {}
