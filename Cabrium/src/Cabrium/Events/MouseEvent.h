@@ -1,18 +1,48 @@
 #pragma once
 
+#include "Cabrium/Common/Mouse.h"
 #include "Cabrium/Events/Event.h"
 
 namespace cabrium {
 
-// class MouseButtonEvent : public Event {
-// public:
-//     MouseButtonEvent() {}
-//
-//     DECL_EVENT_CLASS_TYPE(WindowClose)
-//     DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput |
-//                               EventCategory::EventCategoryMouse |
-//                               EventCategory::EventCategoryMouseButton)
-// };
+class MouseButtonEvent : public Event {
+public:
+    mouse::ButtonCode getButtonCode() const { return button; }
+
+    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput |
+                              EventCategory::EventCategoryMouse |
+                              EventCategory::EventCategoryMouseButton)
+protected:
+    MouseButtonEvent(const mouse::ButtonCode button_) : button(button_) {}
+
+    mouse::ButtonCode button;
+};
+
+class MouseButtonPressedEvent : public MouseButtonEvent {
+public:
+    MouseButtonPressedEvent(const mouse::ButtonCode button_) : MouseButtonEvent(button_) {}
+
+    std::string toString() const override {
+        std::stringstream ss;
+        ss << "MouseButtonPressed: " << button;
+        return ss.str();
+    }
+
+    DECL_EVENT_CLASS_TYPE(MouseButtonPressed)
+};
+
+class MouseButtonReleasedEvent : public MouseButtonEvent {
+public:
+    MouseButtonReleasedEvent(const mouse::ButtonCode button_) : MouseButtonEvent(button_) {}
+
+    std::string toString() const override {
+        std::stringstream ss;
+        ss << "MouseButtonReleased: " << button;
+        return ss.str();
+    }
+
+    DECL_EVENT_CLASS_TYPE(MouseButtonReleased)
+};
 
 class MouseMovedEvent : public Event {
 public:
