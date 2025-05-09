@@ -10,7 +10,7 @@ cabrium::Application *cabrium::CreateApplication() {
 
     WindowResizeEvent e(1280, 720);
 
-    if (e.IsInCategory(EventCategoryApplication)) {
+    if (e.isInCategory(EventCategoryApplication)) {
         CBRM_TRACE(e);
     }
 
