@@ -58,32 +58,32 @@ enum EventCategory : uint32_t {
 // }
 
 #define DECL_EVENT_CLASS_TYPE(type)                                             \
-    static EventType GetStaticType() { return EventType::type; }                \
-    virtual EventType GetEventType() const override { return GetStaticType(); } \
-    virtual const char *GetName() const override { return #type; }
+    static EventType getStaticType() { return EventType::type; }                \
+    virtual EventType getEventType() const override { return getStaticType(); } \
+    virtual const char *getName() const override { return #type; }
 
 #define DECL_EVENT_CLASS_CATEGORY(category) \
-    virtual uint32_t GetCategoryFlags() const override { return static_cast<uint32_t>(category); }
+    virtual uint32_t getCategoryFlags() const override { return static_cast<uint32_t>(category); }
 
 class Event {
 public:
     virtual ~Event() {}
 
-    virtual EventType GetEventType() const = 0;
-    virtual const char *GetName() const = 0;
-    virtual uint32_t GetCategoryFlags() const = 0;
-    virtual std::string ToString() const { return GetName(); };
+    virtual EventType getEventType() const = 0;
+    virtual const char *getName() const = 0;
+    virtual uint32_t getCategoryFlags() const = 0;
+    virtual std::string toString() const { return getName(); };
 
-    bool IsInCategory(EventCategory category) const {
-        return GetCategoryFlags() & static_cast<uint32_t>(category);
+    bool isInCategory(EventCategory category) const {
+        return getCategoryFlags() & static_cast<uint32_t>(category);
     }
 
 private:
     bool handled = false;
 };
 
-inline std::ostream &operator<<(std::ostream &os, const Event &e) { return os << e.ToString(); }
+inline std::ostream &operator<<(std::ostream &os, const Event &e) { return os << e.toString(); }
 
-inline std::string format_as(const Event &e) { return e.ToString(); }
+inline std::string format_as(const Event &e) { return e.toString(); }
 
 } // namespace cabrium
