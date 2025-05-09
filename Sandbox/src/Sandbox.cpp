@@ -6,7 +6,7 @@ public:
     ~Sandbox() {}
 };
 
-cabrium::Application *cabrium::CreateApplication() {
+cabrium::Application *cabrium::createApplication() {
 
     WindowResizeEvent e(1280, 720);
 

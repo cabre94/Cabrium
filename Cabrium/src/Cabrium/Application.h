@@ -6,14 +6,13 @@ namespace cabrium {
 
 class CBRM_API Application {
 public:
-	Application();
-	virtual ~Application();
+    Application();
+    virtual ~Application();
 
-	void Run();
-
+    void run();
 };
 
 // To be defined in a client
-Application* CreateApplication();
+Application *createApplication();
 
-} // namespace cabrium 
+} // namespace cabrium
