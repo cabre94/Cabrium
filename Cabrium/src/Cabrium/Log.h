@@ -13,7 +13,7 @@ public:
     // Log();
     //~Log();
 
-    static void Init();
+    static void init();
 
     inline static std::shared_ptr<spdlog::logger> &getCoreLogger() { return s_core_logger; }
     inline static std::shared_ptr<spdlog::logger> &getClientLogger() { return s_client_logger; }
