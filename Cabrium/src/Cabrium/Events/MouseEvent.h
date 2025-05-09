@@ -24,7 +24,7 @@ public:
 
     std::string toString() const override {
         std::stringstream ss;
-        ss << "MouseButtonPressed: " << button;
+        ss << "MouseButtonPressedEvent: " << button;
         return ss.str();
     }
 
@@ -37,7 +37,7 @@ public:
 
     std::string toString() const override {
         std::stringstream ss;
-        ss << "MouseButtonReleased: " << button;
+        ss << "MouseButtonReleasedEvent: " << button;
         return ss.str();
     }
 
