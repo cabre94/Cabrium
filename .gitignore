@@ -3,5 +3,7 @@
 bin/
 bin-int/
 
-*.user
-/Sandbox/Sandbox.vcxproj
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
