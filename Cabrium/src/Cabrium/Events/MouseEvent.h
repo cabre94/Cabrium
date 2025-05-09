@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Cabrium/Events/Event.h"
+
 namespace cabrium {
 
 // class MouseButtonEvent : public Event {

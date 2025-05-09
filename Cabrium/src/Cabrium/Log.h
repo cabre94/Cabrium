@@ -4,15 +4,12 @@
 
 #include "spdlog/spdlog.h"
 
-#include "Core.h"
+#include "Cabrium/Common/Basic.h"
 
 namespace cabrium {
 
 class CBRM_API Log {
 public:
-    // Log();
-    //~Log();
-
     static void init();
 
     inline static std::shared_ptr<spdlog::logger> &getCoreLogger() { return s_core_logger; }

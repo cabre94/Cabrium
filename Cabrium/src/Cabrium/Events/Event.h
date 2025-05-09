@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cabrium/Core.h"
+#include "Cabrium/Common/Basic.h"
 
 #include <cstdint>
 #include <string>
