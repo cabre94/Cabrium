@@ -19,8 +19,8 @@ class WindowResizeEvent : public Event {
 public:
     WindowResizeEvent(uint32_t width_, uint32_t height_) : width(width_), height(height_) {}
 
-    uint32_t GetWidth() const { return width; }
-    uint32_t GetHeight() const { return height; }
+    uint32_t getWidth() const { return width; }
+    uint32_t getHeight() const { return height; }
 
     std::string toString() const override {
         std::stringstream ss;
