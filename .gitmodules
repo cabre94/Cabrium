@@ -1,3 +1,6 @@
 [submodule "Cabrium/vendor/spdlog"]
 	path = Cabrium/vendor/spdlog
 	url = git@github.com:gabime/spdlog.git
+[submodule "Cabrium/vendor/GLFW"]
+	path = Cabrium/vendor/GLFW
+	url = git@github.com:cabre94/glfw.git

@@ -2,9 +2,6 @@
 
 #include "Cabrium/Common/Basic.h"
 
-#include <cstdint>
-#include <string>
-
 namespace cabrium {
 
 enum class EventType {

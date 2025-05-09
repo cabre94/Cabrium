@@ -21,6 +21,9 @@ project "Cabrium"
 	targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir  ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "cbrm_pch.h"
+	pchsource "Cabrium/src/cbrm_pch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

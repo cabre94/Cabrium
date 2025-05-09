@@ -8,11 +8,11 @@ public:
 
 cabrium::Application *cabrium::createApplication() {
 
-    WindowResizeEvent e(1280, 720);
+    // WindowResizeEvent e(1280, 720);
 
-    if (e.isInCategory(EventCategoryApplication)) {
-        CBRM_TRACE(e);
-    }
+    // if (e.isInCategory(EventCategoryApplication)) {
+    //     CBRM_TRACE(e);
+    // }
 
     return new Sandbox();
 }
