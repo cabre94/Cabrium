@@ -2,21 +2,21 @@
 
 #ifdef CBRM_PLATFORM_WINDOWS
 
-extern cabrium::Application* cabrium::CreateApplication();
+extern cabrium::Application *cabrium::CreateApplication();
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
-	cabrium::Log::Init();
-	CBRM_CORE_WARN("Core Logger");
-	CBRM_INFO("Client Logger var = {0}", 42);
+    cabrium::Log::Init();
+    CBRM_CORE_WARN("Core Logger");
+    CBRM_INFO("Client Logger var = {0}", 42);
 
-	cabrium::Application* app = cabrium::CreateApplication();
+    cabrium::Application *app = cabrium::CreateApplication();
 
-	app->Run();
+    app->Run();
 
-	delete app;
+    delete app;
 
-	return 0;
+    return 0;
 }
 
 #endif // CBRM_PLATFORM_WINDOWS
