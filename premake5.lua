@@ -25,7 +25,7 @@ project "Cabrium"
 	buildoptions { "/utf-8" }
 
 	targetdir  ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir  ("bin-int/" .. outputdir .. "/%{prj.name}")
+	objdir  ("build/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "cbrm_pch.h"
 	pchsource "Cabrium/src/cbrm_pch.cpp"
