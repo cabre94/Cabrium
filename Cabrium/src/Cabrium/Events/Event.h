@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+
 #include "Cabrium/Common/Basic.h"
 
 namespace cabrium {
@@ -75,7 +78,7 @@ public:
         return getCategoryFlags() & static_cast<uint32_t>(category);
     }
 
-private:
+    // private:
     bool handled = false;
 };
 
