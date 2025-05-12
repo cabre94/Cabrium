@@ -9,7 +9,7 @@ public:
     EventDispatcher(Event &event_) : event(event_) {}
 
     template<typename T, typename F>
-    bool Dispatch(const F &func) {
+    bool dispatch(const F &func) {
         if (event.getEventType() != T::getStaticType())
             return false;
 
