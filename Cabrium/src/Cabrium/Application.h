@@ -4,6 +4,7 @@
 
 #include "Common/Basic.h"
 #include "Common/Window.h"
+#include "Events/AppEvent.h"
 
 namespace cabrium {
 
@@ -13,6 +14,8 @@ public:
     virtual ~Application();
 
     void run();
+
+    void onEvent(Event &e);
 
 private:
     std::unique_ptr<Window> window;

@@ -20,8 +20,8 @@ struct WindowProps {
 
 class Window {
 public:
-    // using eventCb = std::function<void(Event &)>;
-    using eventCb = void (*)(Event &);
+    using eventCb = std::function<void(Event &)>;
+    // using eventCb = void (*)(Event &);
 
     virtual ~Window() {}
 

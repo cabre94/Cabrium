@@ -3,15 +3,14 @@
 #include "WindowsWindow.h"
 
 #include "Cabrium/Common/Log.h"
+// #include "Cabrium/Events/WindowEvent.h"
 
 namespace cabrium {
 
 // static bool WindowsWindow::GLFW_initialized = false;
 
 // One implementation per platform
-Window *Window::create(const WindowProps &props) {
-    return new WindowsWindow(props);
-}
+Window *Window::create(const WindowProps &props) { return new WindowsWindow(props); }
 
 void WindowsWindow::update() {
     /* Swap front and back buffers */
@@ -38,8 +37,7 @@ void WindowsWindow::init(const WindowProps &props_) {
 
     data.props = props_;
 
-    CBRM_CORE_INFO("WindowsWindow::init {0} {1} {2}", data.props.title,
-                   data.props.width, data.props.height);
+    CBRM_CORE_INFO("WindowsWindow::init {0} {1} {2}", data.props.title, data.props.width, data.props.height);
 
     // Initialize GLFW in case is not initialized yet
     if (!GLFW_initialized) {
@@ -57,8 +55,7 @@ void WindowsWindow::init(const WindowProps &props_) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(data.props.width, data.props.height,
-                              data.props.title.c_str(), NULL, NULL);
+    window = glfwCreateWindow(data.props.width, data.props.height, data.props.title.c_str(), NULL, NULL);
     if (!window) {
         return shutdown();
     }
@@ -68,6 +65,19 @@ void WindowsWindow::init(const WindowProps &props_) {
 
     glfwSetWindowUserPointer(window, &data);
     setVSync(true);
+
+    // setGLFW callbacks
+    // glfwSetWindowSizeCallback(window, &WindowsWindow::setWindowSizeCallback);
+
+    glfwSetWindowPosCallback(window, &WindowsWindow::setWindowPosCallback);
+    glfwSetWindowSizeCallback(window, &WindowsWindow::setWindowSizeCallback);
+    glfwSetWindowCloseCallback(window, &WindowsWindow::setWindowCloseCallback);
+    glfwSetWindowRefreshCallback(window, &WindowsWindow::setWindowRefreshCallback);
+    glfwSetWindowFocusCallback(window, &WindowsWindow::setWindowFocusCallback);
+    glfwSetWindowIconifyCallback(window, &WindowsWindow::setWindowIconifyCallback);
+    glfwSetWindowMaximizeCallback(window, &WindowsWindow::setWindowMaximizeCallback);
+    glfwSetFramebufferSizeCallback(window, &WindowsWindow::setFramebufferSizeCallback);
+    glfwSetWindowContentScaleCallback(window, &WindowsWindow::setWindowContentScaleCallback);
 }
 
 void WindowsWindow::shutdown() {
