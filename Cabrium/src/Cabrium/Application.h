@@ -1,6 +1,9 @@
 #pragma once
 
+#include <memory>
+
 #include "Common/Basic.h"
+#include "Common/Window.h"
 
 namespace cabrium {
 
@@ -10,6 +13,11 @@ public:
     virtual ~Application();
 
     void run();
+
+private:
+    std::unique_ptr<Window> window;
+
+    bool running = true;
 };
 
 // To be defined in a client

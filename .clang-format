@@ -24,7 +24,7 @@ BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: 'false'
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
-ColumnLimit: '100'
+ColumnLimit: '80'
 CompactNamespaces: 'false'
 ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 FixNamespaceComments: 'true'
