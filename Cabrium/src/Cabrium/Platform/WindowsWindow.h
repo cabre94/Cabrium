@@ -31,7 +31,7 @@ private:
         WindowProps props;
 
         bool vSync = false;
-        eventCb event_cb = false;
+        eventCb event_cb = nullptr;
     };
 
     Data data;
