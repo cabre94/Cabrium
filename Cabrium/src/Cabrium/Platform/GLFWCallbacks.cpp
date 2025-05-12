@@ -8,7 +8,11 @@
 
 namespace cabrium {
 
-void WindowsWindow::setWindowPosCallback(GLFWwindow *window, int xpos, int ypos) {}
+void WindowsWindow::setWindowPosCallback(GLFWwindow *window, int xpos, int ypos) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
 
 void WindowsWindow::setWindowSizeCallback(GLFWwindow *window, int width, int height) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
@@ -19,18 +23,48 @@ void WindowsWindow::setWindowSizeCallback(GLFWwindow *window, int width, int hei
     WindowResizeEvent event(width, height);
     pData->event_cb(event);
 }
-void WindowsWindow::setWindowCloseCallback(GLFWwindow *window) {}
 
-void WindowsWindow::setWindowRefreshCallback(GLFWwindow *window) {}
+void WindowsWindow::setWindowCloseCallback(GLFWwindow *window) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
 
-void WindowsWindow::setWindowFocusCallback(GLFWwindow *window, int focused) {}
+    WindowCloseEvent event;
+    pData->event_cb(event);
+}
 
-void WindowsWindow::setWindowIconifyCallback(GLFWwindow *window, int iconified) {}
+void WindowsWindow::setWindowRefreshCallback(GLFWwindow *window) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
 
-void WindowsWindow::setWindowMaximizeCallback(GLFWwindow *window, int maximized) {}
+void WindowsWindow::setWindowFocusCallback(GLFWwindow *window, int focused) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
 
-void WindowsWindow::setFramebufferSizeCallback(GLFWwindow *window, int width, int height) {}
+void WindowsWindow::setWindowIconifyCallback(GLFWwindow *window, int iconified) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
 
-void WindowsWindow::setWindowContentScaleCallback(GLFWwindow *window, float xscale, float yscale) {}
+void WindowsWindow::setWindowMaximizeCallback(GLFWwindow *window, int maximized) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
+
+void WindowsWindow::setFramebufferSizeCallback(GLFWwindow *window, int width, int height) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
+
+void WindowsWindow::setWindowContentScaleCallback(GLFWwindow *window, float xscale, float yscale) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    // WindowCloseEvent event;
+    // pData->event_cb(event);
+}
 
 } // namespace cabrium

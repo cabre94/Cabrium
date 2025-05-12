@@ -5,6 +5,7 @@
 #include "Common/Basic.h"
 #include "Common/Window.h"
 #include "Events/AppEvent.h"
+#include "Events/WindowEvent.h"
 
 namespace cabrium {
 
@@ -18,6 +19,8 @@ public:
     void onEvent(Event &e);
 
 private:
+    bool onWindowCloseEvent(WindowCloseEvent &e);
+
     std::unique_ptr<Window> window;
 
     bool running = true;
