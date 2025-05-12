@@ -2,6 +2,8 @@
 
 #include "Cabrium/Events/Event.h"
 
+#include <sstream>
+
 namespace cabrium {
 
 class WindowCloseEvent : public Event {
