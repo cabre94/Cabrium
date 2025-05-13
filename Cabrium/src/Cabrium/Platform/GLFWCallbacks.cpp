@@ -103,4 +103,10 @@ void WindowsWindow::setScrollCallback(GLFWwindow *window, double xoffset, double
     pData->event_cb(event);
 }
 
+void WindowsWindow::setCursorPosCallback(GLFWwindow *window, double xpos, double ypos) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    MouseMovedEvent event(xpos, ypos);
+    pData->event_cb(event);
+}
+
 } // namespace cabrium
