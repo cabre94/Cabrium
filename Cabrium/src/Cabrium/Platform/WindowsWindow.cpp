@@ -79,6 +79,7 @@ void WindowsWindow::init(const WindowProps &props_) {
 
     // Set GLFW mouse callbacks
     glfwSetMouseButtonCallback(window, &WindowsWindow::setMouseButtonCallback);
+    glfwSetScrollCallback(window, &WindowsWindow::setScrollCallback);
 }
 
 void WindowsWindow::shutdown() {
