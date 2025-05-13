@@ -8,11 +8,15 @@
 
 namespace cabrium {
 
-void WindowsWindow::setWindowPosCallback(GLFWwindow *window, int xpos, int ypos) {
-    Data *pData = (Data *) glfwGetWindowUserPointer(window);
-    // WindowCloseEvent event;
-    // pData->event_cb(event);
-}
+// --------------------------------------
+// ------- GLFW Windows callbacks -------
+// --------------------------------------
+
+// void WindowsWindow::setWindowPosCallback(GLFWwindow *window, int xpos, int ypos) {
+//     Data *pData = (Data *) glfwGetWindowUserPointer(window);
+//     // WindowCloseEvent event;
+//     // pData->event_cb(event);
+// }
 
 void WindowsWindow::setWindowSizeCallback(GLFWwindow *window, int width, int height) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
@@ -31,6 +35,7 @@ void WindowsWindow::setWindowCloseCallback(GLFWwindow *window) {
     pData->event_cb(event);
 }
 
+#if 0
 void WindowsWindow::setWindowRefreshCallback(GLFWwindow *window) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
     // WindowCloseEvent event;
@@ -66,5 +71,6 @@ void WindowsWindow::setWindowContentScaleCallback(GLFWwindow *window, float xsca
     // WindowCloseEvent event;
     // pData->event_cb(event);
 }
+#endif
 
 } // namespace cabrium

@@ -38,15 +38,16 @@ private:
 
     inline static bool GLFW_initialized = false;
 
-    static void setWindowPosCallback(GLFWwindow *window, int xpos, int ypos);
+    // GLFW Windows callbacks
+    // static void setWindowPosCallback(GLFWwindow *window, int xpos, int ypos);
     static void setWindowSizeCallback(GLFWwindow *window, int width, int height);
     static void setWindowCloseCallback(GLFWwindow *window);
-    static void setWindowRefreshCallback(GLFWwindow *window);
-    static void setWindowFocusCallback(GLFWwindow *window, int focused);
-    static void setWindowIconifyCallback(GLFWwindow *window, int iconified);
-    static void setWindowMaximizeCallback(GLFWwindow *window, int maximized);
-    static void setFramebufferSizeCallback(GLFWwindow *window, int width, int height);
-    static void setWindowContentScaleCallback(GLFWwindow *window, float xscale, float yscale);
+    // static void setWindowRefreshCallback(GLFWwindow *window);
+    // static void setWindowFocusCallback(GLFWwindow *window, int focused);
+    // static void setWindowIconifyCallback(GLFWwindow *window, int iconified);
+    // static void setWindowMaximizeCallback(GLFWwindow *window, int maximized);
+    // static void setFramebufferSizeCallback(GLFWwindow *window, int width, int height);
+    // static void setWindowContentScaleCallback(GLFWwindow *window, float xscale, float yscale);
 };
 //
 // GLFWAPI glfwSetWindowRefreshCallback
