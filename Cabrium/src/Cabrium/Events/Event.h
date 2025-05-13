@@ -32,6 +32,7 @@ enum class EventType {
     MouseButtonReleased,
     MouseMoved,
     MouseScrolled,
+    MouseEnter,
 };
 
 enum EventCategory : uint32_t {
@@ -74,9 +75,7 @@ public:
     virtual uint32_t getCategoryFlags() const = 0;
     virtual std::string toString() const { return getName(); };
 
-    bool isInCategory(EventCategory category) const {
-        return getCategoryFlags() & static_cast<uint32_t>(category);
-    }
+    bool isInCategory(EventCategory category) const { return getCategoryFlags() & static_cast<uint32_t>(category); }
 
     // private:
     bool handled = false;

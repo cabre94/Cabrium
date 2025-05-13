@@ -9,8 +9,7 @@ class MouseButtonEvent : public Event {
 public:
     mouse::ButtonCode getButtonCode() const { return button; }
 
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput |
-                              EventCategory::EventCategoryMouse |
+    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput | EventCategory::EventCategoryMouse |
                               EventCategory::EventCategoryMouseButton)
 protected:
     MouseButtonEvent(const mouse::ButtonCode button_) : button(button_) {}
@@ -82,6 +81,23 @@ public:
 
 private:
     float offset_x, offset_y;
+};
+
+class MouseEnterEvent : public Event {
+public:
+    MouseEnterEvent(bool entered_) : entered(entered_) {}
+
+    std::string toString() const override {
+        std::stringstream ss;
+        ss << "MouseEnterEvent: " << entered;
+        return ss.str();
+    }
+
+    DECL_EVENT_CLASS_TYPE(MouseEnter)
+    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryMouse)
+
+private:
+    bool entered;
 };
 
 } // namespace cabrium
