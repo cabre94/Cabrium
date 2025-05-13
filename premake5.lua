@@ -28,7 +28,7 @@ project "Cabrium"
 	-- /MTd in premake:
 	-- staticruntime "on"
 	-- runtime "Debug"
-	staticruntime "on"
+	-- staticruntime "on"
 
 	buildoptions { "/utf-8" }
 
@@ -59,7 +59,7 @@ project "Cabrium"
 
 	filter "system:windows"
 		cppdialect "c++20"
-		staticruntime "On"
+		-- staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -76,15 +76,18 @@ project "Cabrium"
 
 	filter "configurations:Debug"
 		defines "CABRIUM_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CABRIUM_RELEASE"
-		symbols "On"
+		buildoptions "/MD"
+		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CABRIUM_DIST"
-		symbols "On"
+		buildoptions "/MD"
+		optimize "On"
 
 
 project "Sandbox"
@@ -92,7 +95,7 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 
-	staticruntime "on"
+	-- staticruntime "on"
 
 	buildoptions { "/utf-8" }
 
@@ -118,7 +121,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "c++20"
-		staticruntime "On"
+		--staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -128,12 +131,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "CABRIUM_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CABRIUM_RELEASE"
-		symbols "On"
+		buildoptions "/MD"
+		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CABRIUM_DIST"
-		symbols "On"
+		buildoptions "/MD"
+		optimize "On"
