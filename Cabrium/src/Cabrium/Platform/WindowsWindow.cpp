@@ -44,7 +44,7 @@ void WindowsWindow::init(const WindowProps &props_) {
         int glfw_init_ok = glfwInit();
         CBRM_CORE_ASSERT(glfw_init_ok, "glfwInit failed!");
 
-        glfwSetErrorCallback();
+        glfwSetErrorCallback(&WindowsWindow::setGLFWErrorCallback);
 
         GLFW_initialized = true;
     }
