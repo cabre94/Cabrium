@@ -44,6 +44,8 @@ void WindowsWindow::init(const WindowProps &props_) {
         int glfw_init_ok = glfwInit();
         CBRM_CORE_ASSERT(glfw_init_ok, "glfwInit failed!");
 
+        glfwSetErrorCallback();
+
         GLFW_initialized = true;
     }
     // TODO: Need to manage multiple windows
@@ -82,9 +84,12 @@ void WindowsWindow::init(const WindowProps &props_) {
     glfwSetScrollCallback(window, &WindowsWindow::setScrollCallback);
     glfwSetCursorPosCallback(window, &WindowsWindow::setCursorPosCallback);
     glfwSetCursorEnterCallback(window, &WindowsWindow::setCursorEnterCallback);
+    // glfwSetDropCallback   // TODO: To manage files
 
     // Set GLFW keyboard callbacks
     glfwSetKeyCallback(window, &WindowsWindow::setKeyCallback);
+
+    // TODO: Manage joystick controls
 }
 
 void WindowsWindow::shutdown() {

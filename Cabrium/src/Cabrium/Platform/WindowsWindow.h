@@ -38,6 +38,9 @@ private:
 
     inline static bool GLFW_initialized = false;
 
+    // GLFW Error callback
+    static void setGLFWErrorCallback(int error_code, const char *description);
+
     // GLFW Windows callbacks
     // static void setWindowPosCallback(GLFWwindow *window, int xpos, int ypos);
     static void setWindowSizeCallback(GLFWwindow *window, int width, int height);

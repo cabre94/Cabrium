@@ -2,6 +2,7 @@
 
 #include "WindowsWindow.h"
 
+#include "Cabrium/Common/Log.h"
 #include "Cabrium/Events/KeyEvent.h"
 #include "Cabrium/Events/MouseEvent.h"
 #include "Cabrium/Events/WindowEvent.h"
@@ -19,6 +20,10 @@ namespace cabrium {
 //     // WindowCloseEvent event;
 //     // pData->event_cb(event);
 // }
+
+void WindowsWindow::setGLFWErrorCallback(int error_code, const char *description) {
+    CBRM_CORE_ERROR("GLFW Error {0} {1}", error_code, description);
+}
 
 void WindowsWindow::setWindowSizeCallback(GLFWwindow *window, int width, int height) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
