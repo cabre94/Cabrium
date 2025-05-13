@@ -110,6 +110,12 @@ void WindowsWindow::setCursorPosCallback(GLFWwindow *window, double xpos, double
     pData->event_cb(event);
 }
 
+void WindowsWindow::setCursorEnterCallback(GLFWwindow *window, int entered) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+    MouseEnterEvent event(entered != 0);
+    pData->event_cb(event);
+}
+
 void WindowsWindow::setKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
 

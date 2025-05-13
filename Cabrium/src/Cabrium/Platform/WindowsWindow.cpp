@@ -81,6 +81,7 @@ void WindowsWindow::init(const WindowProps &props_) {
     glfwSetMouseButtonCallback(window, &WindowsWindow::setMouseButtonCallback);
     glfwSetScrollCallback(window, &WindowsWindow::setScrollCallback);
     glfwSetCursorPosCallback(window, &WindowsWindow::setCursorPosCallback);
+    glfwSetCursorEnterCallback(window, &WindowsWindow::setCursorEnterCallback);
 
     // Set GLFW keyboard callbacks
     glfwSetKeyCallback(window, &WindowsWindow::setKeyCallback);

@@ -53,30 +53,10 @@ private:
     static void setMouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
     static void setScrollCallback(GLFWwindow *window, double xoffset, double yoffset);
     static void setCursorPosCallback(GLFWwindow *window, double xpos, double ypos);
+    static void setCursorEnterCallback(GLFWwindow *window, int entered);
 
     // Set GLFW keyboard callbacks
     static void setKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 };
-//
-// GLFWAPI glfwSetWindowRefreshCallback
-// glfwSetWindowRefreshCallback(GLFWwindow *handle, glfwSetWindowRefreshCallback
-// cbfun);
-//
-// GLFWAPI glfwSetWindowFocusCallback glfwSetWindowFocusCallback(GLFWwindow
-// *handle,
-//                                                       glfwSetWindowFocusCallback
-//                                                       cbfun);
-//
-// GLFWAPI glfwSetWindowIconifyCallback
-// glfwSetWindowIconifyCallback(GLFWwindow *handle, glfwSetWindowIconifyCallback
-// cbfun);
-//
-// GLFWAPI glfwSetWindowMaximizeCallback
-// glfwSetWindowMaximizeCallback(GLFWwindow *handle,
-// glfwSetWindowMaximizeCallback cbfun);
-//
-// GLFWAPI GLFWframebuffersizefun glfwSetFramebufferSizeCallback;
-//
-// GLFWAPI GLFWwindowcontentscalefun glfwSetWindowContentScaleCallback;
 
 } // namespace cabrium
