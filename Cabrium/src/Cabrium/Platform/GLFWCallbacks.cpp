@@ -2,6 +2,7 @@
 
 #include "WindowsWindow.h"
 
+#include "Cabrium/Events/KeyEvent.h"
 #include "Cabrium/Events/MouseEvent.h"
 #include "Cabrium/Events/WindowEvent.h"
 
@@ -78,7 +79,7 @@ void WindowsWindow::setWindowContentScaleCallback(GLFWwindow *window, float xsca
 #endif
 
 // --------------------------------------
-// ------- GLFW Mouse callbacks -------
+// -------- GLFW Mouse callbacks --------
 // --------------------------------------
 
 void WindowsWindow::setMouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
@@ -107,6 +108,21 @@ void WindowsWindow::setCursorPosCallback(GLFWwindow *window, double xpos, double
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
     MouseMovedEvent event(xpos, ypos);
     pData->event_cb(event);
+}
+
+void WindowsWindow::setKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+
+    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+        // MouseButtonPressedEvent((mouse::ButtonCode) button);
+        KeyPressedEvent event((key::KeyCode) key, action == GLFW_REPEAT);
+        pData->event_cb(event);
+    } else if (action == GLFW_RELEASE) {
+        KeyReleasedEvent event((key::KeyCode) key);
+        pData->event_cb(event);
+    } else {
+        CBRM_CORE_ASSERT("WindowsWindow::setKeyCallback - unexpected action value {}", action);
+    }
 }
 
 } // namespace cabrium

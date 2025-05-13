@@ -3,14 +3,15 @@
 #include "Cabrium/Common/Key.h"
 #include "Cabrium/Events/Event.h"
 
+#include <sstream>
+
 namespace cabrium {
 
 class KeyEvent : public Event {
 public:
     key::KeyCode getKeyCode() const { return key; }
 
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput |
-                              EventCategory::EventCategoryKeyboard)
+    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput | EventCategory::EventCategoryKeyboard)
 protected:
     KeyEvent(const key::KeyCode key_) : key(key_) {}
 
@@ -19,8 +20,7 @@ protected:
 
 class KeyPressedEvent : public KeyEvent {
 public:
-    KeyPressedEvent(const key::KeyCode key_, bool repeated_ = false)
-        : KeyEvent(key_), repeated(repeated_) {}
+    KeyPressedEvent(const key::KeyCode key_, bool repeated_ = false) : KeyEvent(key_), repeated(repeated_) {}
 
     std::string toString() const override {
         std::stringstream ss;

@@ -53,6 +53,9 @@ private:
     static void setMouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
     static void setScrollCallback(GLFWwindow *window, double xoffset, double yoffset);
     static void setCursorPosCallback(GLFWwindow *window, double xpos, double ypos);
+
+    // Set GLFW keyboard callbacks
+    static void setKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 };
 //
 // GLFWAPI glfwSetWindowRefreshCallback
