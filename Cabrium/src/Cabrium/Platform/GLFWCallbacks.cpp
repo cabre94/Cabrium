@@ -105,13 +105,13 @@ void WindowsWindow::setMouseButtonCallback(GLFWwindow *window, int button, int a
 
 void WindowsWindow::setScrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
-    MouseScrolledEvent event(xoffset, yoffset);
+    MouseScrolledEvent event((float) xoffset, (float) yoffset);
     pData->event_cb(event);
 }
 
 void WindowsWindow::setCursorPosCallback(GLFWwindow *window, double xpos, double ypos) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
-    MouseMovedEvent event(xpos, ypos);
+    MouseMovedEvent event((float) xpos, (float) ypos);
     pData->event_cb(event);
 }
 

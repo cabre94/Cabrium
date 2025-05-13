@@ -9,6 +9,9 @@
 
 namespace cabrium {
 
+#pragma warning(push)
+#pragma warning(disable : 4251)
+
 class CBRM_API Application {
 public:
     Application();
@@ -25,6 +28,8 @@ private:
 
     bool running = true;
 };
+
+#pragma warning(pop)
 
 // To be defined in a client
 Application *createApplication();
