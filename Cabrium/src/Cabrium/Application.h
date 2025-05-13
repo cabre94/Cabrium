@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Common/Basic.h"
+#include "Common/LayerList.h"
 #include "Common/Window.h"
 #include "Events/AppEvent.h"
 #include "Events/WindowEvent.h"
@@ -21,12 +22,17 @@ public:
 
     void onEvent(Event &e);
 
+    void pushLayer(Layer *layer) { layer_list.pushLayer(layer); }
+    void popLayer(Layer *layer) { layer_list.popLayer(layer); }
+
 private:
     bool onWindowCloseEvent(WindowCloseEvent &e);
 
     std::unique_ptr<Window> window;
 
     bool running = true;
+
+    LayerList layer_list;
 };
 
 #pragma warning(pop)

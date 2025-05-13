@@ -5,6 +5,7 @@
 // #include "Cabrium/Events/KeyEvent.h"
 // #include "Cabrium/Events/MouseEvent.h"
 // #include "Cabrium/Events/WindowEvent.h"
+#include "Cabrium/Common/Layer.h"
 #include "Cabrium/Common/Log.h"
 
 #include "Cabrium/EntryPoint.h"

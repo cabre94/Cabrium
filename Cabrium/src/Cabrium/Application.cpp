@@ -25,13 +25,13 @@ Application::~Application() {}
 
 void Application::run() {
 
-    // while (getchar() != 'q')
-    //     ;
-
     while (running) {
 
         glClearColor(0, 1, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        for (Layer *layer : layer_list)
+            layer->onUpdate();
 
         window->update();
     }
@@ -41,8 +41,13 @@ void Application::onEvent(Event &e) {
     CBRM_INFO("{0}", e);
 
     EventDispatcher dispatcher(e);
-
     dispatcher.dispatch<WindowCloseEvent>(std::bind(&Application::onWindowCloseEvent, this, _1));
+
+    for (auto it = layer_list.rbegin(); it != layer_list.rend(); ++it) {
+        (*it)->onEvent(e);
+        if (e.handled)
+            break;
+    }
 }
 
 bool Application::onWindowCloseEvent(WindowCloseEvent &e) {
