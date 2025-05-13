@@ -2,6 +2,7 @@
 
 #include "WindowsWindow.h"
 
+#include "Cabrium/Events/MouseEvent.h"
 #include "Cabrium/Events/WindowEvent.h"
 
 #include <GLFW/glfw3.h>
@@ -30,6 +31,9 @@ void WindowsWindow::setWindowSizeCallback(GLFWwindow *window, int width, int hei
 
 void WindowsWindow::setWindowCloseCallback(GLFWwindow *window) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
+
+    // if (!time_to_close)
+    //     glfwSetWindowShouldClose(window, GLFW_FALSE);
 
     WindowCloseEvent event;
     pData->event_cb(event);
@@ -72,5 +76,25 @@ void WindowsWindow::setWindowContentScaleCallback(GLFWwindow *window, float xsca
     // pData->event_cb(event);
 }
 #endif
+
+// --------------------------------------
+// ------- GLFW Mouse callbacks -------
+// --------------------------------------
+
+void WindowsWindow::setMouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
+    Data *pData = (Data *) glfwGetWindowUserPointer(window);
+
+    if (action == GLFW_PRESS) {
+        // MouseButtonPressedEvent((mouse::ButtonCode) button);
+        MouseButtonPressedEvent event((mouse::ButtonCode) button);
+        pData->event_cb(event);
+
+    } else if (action == GLFW_RELEASE) {
+        MouseButtonReleasedEvent event((mouse::ButtonCode) button);
+        pData->event_cb(event);
+    } else {
+        CBRM_CORE_ASSERT("WindowsWindow::setMouseButtonCallback - unexpected action value {}", action);
+    }
+}
 
 } // namespace cabrium

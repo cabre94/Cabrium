@@ -66,18 +66,19 @@ void WindowsWindow::init(const WindowProps &props_) {
     glfwSetWindowUserPointer(window, &data);
     setVSync(true);
 
-    // setGLFW callbacks
-    // glfwSetWindowSizeCallback(window, &WindowsWindow::setWindowSizeCallback);
-
-    glfwSetWindowPosCallback(window, &WindowsWindow::setWindowPosCallback);
+    // set GLFW Windows callbacks
+    // glfwSetWindowPosCallback(window, &WindowsWindow::setWindowPosCallback);
     glfwSetWindowSizeCallback(window, &WindowsWindow::setWindowSizeCallback);
     glfwSetWindowCloseCallback(window, &WindowsWindow::setWindowCloseCallback);
-    glfwSetWindowRefreshCallback(window, &WindowsWindow::setWindowRefreshCallback);
-    glfwSetWindowFocusCallback(window, &WindowsWindow::setWindowFocusCallback);
-    glfwSetWindowIconifyCallback(window, &WindowsWindow::setWindowIconifyCallback);
-    glfwSetWindowMaximizeCallback(window, &WindowsWindow::setWindowMaximizeCallback);
-    glfwSetFramebufferSizeCallback(window, &WindowsWindow::setFramebufferSizeCallback);
-    glfwSetWindowContentScaleCallback(window, &WindowsWindow::setWindowContentScaleCallback);
+    // glfwSetWindowRefreshCallback(window, &WindowsWindow::setWindowRefreshCallback);
+    // glfwSetWindowFocusCallback(window, &WindowsWindow::setWindowFocusCallback);
+    // glfwSetWindowIconifyCallback(window, &WindowsWindow::setWindowIconifyCallback);
+    // glfwSetWindowMaximizeCallback(window, &WindowsWindow::setWindowMaximizeCallback);
+    // glfwSetFramebufferSizeCallback(window, &WindowsWindow::setFramebufferSizeCallback);
+    // glfwSetWindowContentScaleCallback(window, &WindowsWindow::setWindowContentScaleCallback);
+
+    // Set GLFW mouse callbacks
+    glfwSetMouseButtonCallback(window, &WindowsWindow::setMouseButtonCallback);
 }
 
 void WindowsWindow::shutdown() {

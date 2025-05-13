@@ -48,6 +48,9 @@ private:
     // static void setWindowMaximizeCallback(GLFWwindow *window, int maximized);
     // static void setFramebufferSizeCallback(GLFWwindow *window, int width, int height);
     // static void setWindowContentScaleCallback(GLFWwindow *window, float xscale, float yscale);
+
+    // Set GLFW mouse callbacks
+    static void setMouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 };
 //
 // GLFWAPI glfwSetWindowRefreshCallback
