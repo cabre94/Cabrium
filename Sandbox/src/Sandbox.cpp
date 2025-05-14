@@ -1,8 +1,19 @@
-#include "Cabrium.h"
+#include <Cabrium.h>
+
+class DummyLayer : public cabrium::Layer {
+public:
+    DummyLayer() : Layer("DummyLayer") {}
+
+    void onUpdate() override { CBRM_INFO("DummyLayer::onUpdate()"); }
+
+    void onEvent(const cabrium::Event &e) override { CBRM_INFO("DummyLayer::onEvent - event {0}", 0); }
+
+private:
+};
 
 class Sandbox : public cabrium::Application {
 public:
-    Sandbox() {}
+    Sandbox() { pushLayer(new DummyLayer()); }
     ~Sandbox() {}
 };
 
