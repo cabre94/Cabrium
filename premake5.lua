@@ -13,9 +13,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Cabrium/vendor/GLFW/include"
+IncludeDir["glad"] = "Cabrium/vendor/glad/include"
 
 -- include premake file added on GLFW
 include "Cabrium/vendor/GLFW"
+include "Cabrium/vendor/glad"
 
 project "Cabrium"
 	location "Cabrium"
@@ -48,12 +50,14 @@ project "Cabrium"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"glad",
 		"opengl32.lib"
 	}
 
@@ -65,7 +69,8 @@ project "Cabrium"
 		defines
 		{
 			"CBRM_PLATFORM_WINDOWS",
-			"CBRM_BUILD_DLL"
+			"CBRM_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
