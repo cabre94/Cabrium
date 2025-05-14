@@ -5,6 +5,8 @@
 #include "Cabrium/Common/Log.h"
 // #include "Cabrium/Events/WindowEvent.h"
 
+#include <glad/glad.h>
+
 namespace cabrium {
 
 // static bool WindowsWindow::GLFW_initialized = false;
@@ -64,6 +66,10 @@ void WindowsWindow::init(const WindowProps &props_) {
 
     // Make the window's context current
     glfwMakeContextCurrent(window);
+
+    // Glad initialization
+    int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+    CBRM_CORE_ASSERT(status, "Glad initialization failed");
 
     glfwSetWindowUserPointer(window, &data);
     setVSync(true);

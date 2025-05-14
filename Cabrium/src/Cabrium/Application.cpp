@@ -6,7 +6,8 @@
 #include "Common/Window.h"
 #include "Events/EventDispatcher.h"
 
-#include <GLFW/glfw3.h>
+// #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 using namespace std::placeholders;
 
