@@ -15,7 +15,7 @@ void LayerList::pushLayer(Layer *layer) {
     // insert just before layerInsertPos
     auto it = layers.insert(layerInsertPos, layer);
 
-    ++layerInsertPos;
+    layerInsertPos = std::next(it);
 }
 
 void LayerList::pushOverlay(Layer *overlay) { layers.push_back(overlay); }
