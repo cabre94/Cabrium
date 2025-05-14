@@ -4,3 +4,6 @@
 [submodule "Cabrium/vendor/GLFW"]
 	path = Cabrium/vendor/GLFW
 	url = git@github.com:cabre94/glfw.git
+[submodule "Cabrium/vendor/imgui"]
+	path = Cabrium/vendor/imgui
+	url = git@github.com:cabre94/imgui.git
