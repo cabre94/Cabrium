@@ -14,10 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Cabrium/vendor/GLFW/include"
 IncludeDir["glad"] = "Cabrium/vendor/glad/include"
+IncludeDir["imgui"] = "Cabrium/vendor/imgui"
 
 -- include premake file added on GLFW
 include "Cabrium/vendor/GLFW"
 include "Cabrium/vendor/glad"
+include "Cabrium/vendor/imgui"
 
 project "Cabrium"
 	location "Cabrium"
@@ -51,13 +53,15 @@ project "Cabrium"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"glad",
+		"imgui",
 		"opengl32.lib"
 	}
 
