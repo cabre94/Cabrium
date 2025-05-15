@@ -34,4 +34,15 @@ private:
     uint32_t width, height;
 };
 
+class WindowFocusEvent : public Event {
+public:
+    WindowFocusEvent(bool focused_) : focused(focused_) {}
+
+    DECL_EVENT_CLASS_TYPE(WindowFocus)
+    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
+
+private:
+    bool focused;
+};
+
 } // namespace cabrium
