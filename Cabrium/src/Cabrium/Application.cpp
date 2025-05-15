@@ -15,7 +15,12 @@ namespace cabrium {
 
 // std::bind(&Application::onEvent, this, std::placeholders::_1);
 
+Application *Application::instance = nullptr;
+
 Application::Application() {
+    CBRM_CORE_ASSERT(!instance, "Application::Application - already an instance");
+    instance = this;
+
     // window = std::make_unique<Window>;
     window = std::unique_ptr<Window>(Window::create());
 
@@ -49,6 +54,16 @@ void Application::onEvent(Event &e) {
         if (e.handled)
             break;
     }
+}
+
+void Application::pushLayer(Layer *layer) {
+    layer_list.pushLayer(layer);
+    layer->onAttach();
+}
+
+void Application::pushOverlay(Layer *layer) {
+    layer_list.pushOverlay(layer);
+    layer->onAttach();
 }
 
 bool Application::onWindowCloseEvent(WindowCloseEvent &e) {

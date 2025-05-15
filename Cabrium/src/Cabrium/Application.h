@@ -22,8 +22,12 @@ public:
 
     void onEvent(Event &e);
 
-    void pushLayer(Layer *layer) { layer_list.pushLayer(layer); }
+    void pushLayer(Layer *layer);
+    void pushOverlay(Layer *layer);
     void popLayer(Layer *layer) { layer_list.popLayer(layer); }
+
+    static Application &getInstance() { return *instance; }
+    Window &getWindow() { return *window; }
 
 private:
     bool onWindowCloseEvent(WindowCloseEvent &e);
@@ -33,6 +37,8 @@ private:
     bool running = true;
 
     LayerList layer_list;
+
+    static Application *instance;
 };
 
 #pragma warning(pop)
