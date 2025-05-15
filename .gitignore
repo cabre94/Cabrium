@@ -9,3 +9,4 @@ build/
 **.vcxproj.filters
 **.vcxproj.user
 /Cabrium/cpp.hint
+*.ini
