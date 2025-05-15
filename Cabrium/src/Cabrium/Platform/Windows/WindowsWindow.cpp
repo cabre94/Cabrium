@@ -79,7 +79,7 @@ void WindowsWindow::init(const WindowProps &props_) {
     glfwSetWindowSizeCallback(window, &WindowsWindow::setWindowSizeCallback);
     glfwSetWindowCloseCallback(window, &WindowsWindow::setWindowCloseCallback);
     // glfwSetWindowRefreshCallback(window, &WindowsWindow::setWindowRefreshCallback);
-    // glfwSetWindowFocusCallback(window, &WindowsWindow::setWindowFocusCallback);
+    glfwSetWindowFocusCallback(window, &WindowsWindow::setWindowFocusCallback);
     // glfwSetWindowIconifyCallback(window, &WindowsWindow::setWindowIconifyCallback);
     // glfwSetWindowMaximizeCallback(window, &WindowsWindow::setWindowMaximizeCallback);
     // glfwSetFramebufferSizeCallback(window, &WindowsWindow::setFramebufferSizeCallback);

@@ -52,12 +52,15 @@ void WindowsWindow::setWindowRefreshCallback(GLFWwindow *window) {
     // pData->event_cb(event);
 }
 
+#endif
+
 void WindowsWindow::setWindowFocusCallback(GLFWwindow *window, int focused) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
-    // WindowCloseEvent event;
-    // pData->event_cb(event);
+    WindowFocusEvent event(focused);
+    pData->event_cb(event);
 }
 
+#if 0
 void WindowsWindow::setWindowIconifyCallback(GLFWwindow *window, int iconified) {
     Data *pData = (Data *) glfwGetWindowUserPointer(window);
     // WindowCloseEvent event;

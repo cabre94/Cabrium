@@ -36,13 +36,13 @@ private:
 
 class WindowFocusEvent : public Event {
 public:
-    WindowFocusEvent(bool focused_) : focused(focused_) {}
+    WindowFocusEvent(int focused_) : focused(focused_) {}
 
     DECL_EVENT_CLASS_TYPE(WindowFocus)
     DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
 
 private:
-    bool focused;
+    int focused;
 };
 
 } // namespace cabrium
