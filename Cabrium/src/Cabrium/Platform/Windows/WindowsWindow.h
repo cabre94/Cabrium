@@ -15,6 +15,7 @@ public:
 
     uint32_t getWidth() override { return data.props.width; };
     uint32_t getHeight() override { return data.props.height; };
+    void *getNativeWindow() override { return window; }
 
     void setEventCallback(const eventCb &cb) override { data.event_cb = cb; };
 
