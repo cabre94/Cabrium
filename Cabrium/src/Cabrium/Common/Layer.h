@@ -18,7 +18,7 @@ public:
     virtual void onAttach() {}
     virtual void onDetach() {}
     virtual void onUpdate() {}
-    virtual void onEvent(const Event &event) {}
+    virtual void onEvent(Event &event) {}
 
     inline const std::string getName() { return name; }
 
