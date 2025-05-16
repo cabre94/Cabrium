@@ -2,12 +2,24 @@
 
 #include "ImGuiLayer.h"
 
+// #define IMGUI_IMPL_OPENGL_LOADER_GLAD
+// #include <backends/imgui_impl_glfw.cpp>
+//  #include <backends/imgui_impl_opengl3.cpp>
+
 #include "Cabrium/Application.h"
+#include "Cabrium/Common/Log.h"
+#include "Cabrium/Events/EventDispatcher.h"
+#include "Cabrium/Events/KeyEvent.h"
+#include "Cabrium/Events/MouseEvent.h"
+#include "Cabrium/Events/WindowEvent.h"
+#include "Cabrium/Platform/OpenGL/GLFW_ImGui.h"
 #include "Cabrium/Platform/OpenGL/OpenGL_ImGui.h"
 
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 #include <imgui.h>
 
-#include "GLFW/glfw3.h"
+using namespace std::placeholders;
 
 namespace cabrium {
 
