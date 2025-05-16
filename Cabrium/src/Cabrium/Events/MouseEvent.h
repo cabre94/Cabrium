@@ -93,6 +93,8 @@ public:
         return ss.str();
     }
 
+    bool getEntered() const { return entered; }
+
     DECL_EVENT_CLASS_TYPE(MouseEnter)
     DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryMouse)
 
