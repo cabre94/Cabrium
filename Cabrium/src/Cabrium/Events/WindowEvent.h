@@ -41,6 +41,8 @@ public:
     DECL_EVENT_CLASS_TYPE(WindowFocus)
     DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
 
+    int getFocused() const { return focused; }
+
 private:
     int focused;
 };
