@@ -46,35 +46,33 @@ void ImGuiLayer::onAttach() {
     ImGui_ImplOpenGL3_Init();
 }
 
-void ImGuiLayer::onDetach() {}
+void ImGuiLayer::onDetach() {
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
 
 void ImGuiLayer::onUpdate() {
     // CBRM_CORE_INFO("ImGuiLayer::onUpdate");
-
-    Application &app = Application::getInstance();
-
-    ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((float) app.getWindow().getWidth(), (float) app.getWindow().getHeight());
-    // io.DisplaySize = ImVec2((float) 1080, (float) 720);
-
-    float t = (float) glfwGetTime();
-    // io.DeltaTime = (t - data.time);
-    io.DeltaTime = data.time > 0.0f ? (t - data.time) : (1.0f / 60.0f);
-
-    data.time = t;
-
+    // Begin
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // ImGui::Begin("Test");
-    // ImGui::End();
+    Application &app = Application::getInstance();
+    ImGuiIO &io = ImGui::GetIO();
+    io.DisplaySize = ImVec2((float) app.getWindow().getWidth(), (float) app.getWindow().getHeight());
+
+    float t = (float) glfwGetTime();
+    io.DeltaTime = (t - data.time);
+    // io.DeltaTime = data.time > 0.0f ? (t - data.time) : (1.0f / 60.0f);
+    data.time = t;
 
     static bool show = true;
     ImGui::ShowDemoWindow(&show);
 
     ImGui::Render();
-
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
