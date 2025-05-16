@@ -10,8 +10,7 @@ namespace cabrium {
 
 struct WindowProps {
 
-    WindowProps(uint16_t width_ = 1920, uint16_t height_ = 1080,
-                const std::string &title_ = "Cabrium")
+    WindowProps(uint16_t width_ = 1920, uint16_t height_ = 1080, const std::string &title_ = "Cabrium")
         : width(width_), height(height_), title(title_) {}
 
     uint32_t width, height;
@@ -29,6 +28,7 @@ public:
 
     virtual uint32_t getWidth() = 0;
     virtual uint32_t getHeight() = 0;
+    virtual void *getNativeWindow() = 0;
 
     // Window attributes
     virtual void setEventCallback(const eventCb &cb) = 0;
