@@ -6,7 +6,6 @@
 #include "Common/Window.h"
 #include "Events/EventDispatcher.h"
 
-// #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
 using namespace std::placeholders;
@@ -32,9 +31,9 @@ Application::~Application() {}
 void Application::run() {
 
     while (running) {
-
         glClearColor(0, 1, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
+        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         for (Layer *layer : layer_list)
             layer->onUpdate();
