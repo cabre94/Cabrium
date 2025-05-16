@@ -90,6 +90,7 @@ void ImGuiLayer::onEvent(Event &event) {
     //  dispatcher.dispatch<KeyReleasedEvent>(std::bind(&ImGuiLayer::onKeyReleasedEvent, this, _1));
 }
 
+// TODO: Remove?
 bool ImGuiLayer::onWindowFocusEvent(const WindowFocusEvent &event) {
     CBRM_CORE_TRACE("ImGuiLayer::onWindowFocusEvent");
 
