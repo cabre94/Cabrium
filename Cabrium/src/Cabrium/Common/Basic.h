@@ -10,6 +10,10 @@
     #error Platform not supported
 #endif // CBRM_PLATFORM_WINDOWS
 
+#ifdef CABRIUM_DEBUG
+    #define CBRM_ENABLE_ASSERTS
+#endif
+
 #ifdef CBRM_ENABLE_ASSERTS
     #define CBRM_ASSERT(x, ...)                                   \
         {                                                         \
