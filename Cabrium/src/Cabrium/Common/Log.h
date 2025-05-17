@@ -1,8 +1,8 @@
 #pragma once
 
-#include "spdlog/spdlog.h"
-
 #include "Cabrium/Common/Basic.h"
+
+#include "spdlog/spdlog.h"
 
 namespace cabrium {
 

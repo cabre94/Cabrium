@@ -11,7 +11,7 @@ public:
     WindowCloseEvent() {}
 
     DECL_EVENT_CLASS_TYPE(WindowClose)
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceApplication)
 };
 
 class WindowResizeEvent : public Event {
@@ -28,7 +28,7 @@ public:
     }
 
     DECL_EVENT_CLASS_TYPE(WindowResize)
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceApplication)
 
 private:
     uint32_t width, height;
@@ -39,7 +39,7 @@ public:
     WindowFocusEvent(int focused_) : focused(focused_) {}
 
     DECL_EVENT_CLASS_TYPE(WindowFocus)
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryApplication)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceApplication)
 
     int getFocused() const { return focused; }
 

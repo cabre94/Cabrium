@@ -6,8 +6,6 @@
 #include "Cabrium/Events/MouseEvent.h"
 #include "Cabrium/Events/WindowEvent.h"
 
-// #include <imgui.h>
-
 namespace cabrium {
 
 class CBRM_API ImGuiLayer : public Layer {

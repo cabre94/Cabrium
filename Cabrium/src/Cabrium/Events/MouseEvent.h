@@ -9,8 +9,8 @@ class MouseButtonEvent : public Event {
 public:
     mouse::ButtonCode getButtonCode() const { return button; }
 
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput | EventCategory::EventCategoryMouse |
-                              EventCategory::EventCategoryMouseButton)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceInput | EventSource::EventSourceMouse |
+                            EventSource::EventSourceMouseButton)
 protected:
     MouseButtonEvent(const mouse::ButtonCode button_) : button(button_) {}
 
@@ -57,7 +57,7 @@ public:
     }
 
     DECL_EVENT_CLASS_TYPE(MouseMoved)
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput | EventCategory::EventCategoryMouse)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceInput | EventSource::EventSourceMouse)
 
 private:
     float x, y;
@@ -77,7 +77,7 @@ public:
     }
 
     DECL_EVENT_CLASS_TYPE(MouseScrolled)
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryInput | EventCategory::EventCategoryMouse)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceInput | EventSource::EventSourceMouse)
 
 private:
     float offset_x, offset_y;
@@ -96,7 +96,7 @@ public:
     bool getEntered() const { return entered; }
 
     DECL_EVENT_CLASS_TYPE(MouseEnter)
-    DECL_EVENT_CLASS_CATEGORY(EventCategory::EventCategoryMouse)
+    DECL_EVENT_CLASS_SOURCE(EventSource::EventSourceMouse)
 
 private:
     bool entered;

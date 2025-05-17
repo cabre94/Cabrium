@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Cabrium/Common/Basic.h"
+
 #include <iostream>
 #include <string>
-
-#include "Cabrium/Common/Basic.h"
 
 namespace cabrium {
 
@@ -35,36 +35,22 @@ enum class EventType {
     MouseEnter,
 };
 
-enum EventCategory : uint32_t {
+enum EventSource : uint32_t {
     None = 0,
-    EventCategoryApplication = BIT(0),
-    EventCategoryInput = BIT(1),
-    EventCategoryKeyboard = BIT(2),
-    EventCategoryMouse = BIT(3),
-    EventCategoryMouseButton = BIT(4)
+    EventSourceApplication = BIT(0),
+    EventSourceInput = BIT(1),
+    EventSourceKeyboard = BIT(2),
+    EventSourceMouse = BIT(3),
+    EventSourceMouseButton = BIT(4)
 };
-
-// inline EventCategory operator|(EventCategory lhs, EventCategory rhs) {
-//     return static_cast<EventCategory>(static_cast<EventCategory>(lhs) |
-//                                       static_cast<EventCategory>(rhs));
-// }
-//
-// inline EventCategory operator&(EventCategory lhs, EventCategory rhs) {
-//     return static_cast<EventCategory>(static_cast<EventCategory>(lhs) &
-//                                       static_cast<EventCategory>(rhs));
-// }
-//
-// inline bool operator!(EventCategory category) {
-//     return static_cast<std::underlying_type_t<EventCategory>>(category) == 0;
-// }
 
 #define DECL_EVENT_CLASS_TYPE(type)                                             \
     static EventType getStaticType() { return EventType::type; }                \
     virtual EventType getEventType() const override { return getStaticType(); } \
     virtual const char *getName() const override { return #type; }
 
-#define DECL_EVENT_CLASS_CATEGORY(category) \
-    virtual uint32_t getCategoryFlags() const override { return static_cast<uint32_t>(category); }
+#define DECL_EVENT_CLASS_SOURCE(source) \
+    virtual uint32_t getCategoryFlags() const override { return static_cast<uint32_t>(source); }
 
 class Event {
 public:
@@ -75,7 +61,7 @@ public:
     virtual uint32_t getCategoryFlags() const = 0;
     virtual std::string toString() const { return getName(); };
 
-    bool isInCategory(EventCategory category) const { return getCategoryFlags() & static_cast<uint32_t>(category); }
+    bool isInCategory(EventSource source) const { return getCategoryFlags() & static_cast<uint32_t>(source); }
 
     // private:
     bool handled = false;
