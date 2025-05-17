@@ -7,3 +7,6 @@
 [submodule "Cabrium/vendor/imgui"]
 	path = Cabrium/vendor/imgui
 	url = git@github.com:cabre94/imgui.git
+[submodule "Cabrium/vendor/glm"]
+	path = Cabrium/vendor/glm
+	url = git@github.com:g-truc/glm.git

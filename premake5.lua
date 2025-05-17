@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Cabrium/vendor/GLFW/include"
 IncludeDir["glad"] = "Cabrium/vendor/glad/include"
 IncludeDir["imgui"] = "Cabrium/vendor/imgui"
+IncludeDir["glm"] = "Cabrium/vendor/glm"
 
 -- include premake file added on GLFW
 group "Dependencies"
@@ -51,6 +52,9 @@ project "Cabrium"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl",
+
 	}
 
 	includedirs
@@ -59,7 +63,8 @@ project "Cabrium"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glad}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -125,13 +130,13 @@ project "Sandbox"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/**.cpp"
 	}
 
 	includedirs
 	{
 		"Cabrium/vendor/spdlog/include",
-		"Cabrium/src"
+		"Cabrium/src",
 	}
 
 	links
