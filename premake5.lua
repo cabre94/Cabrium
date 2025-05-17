@@ -26,6 +26,9 @@ project "Cabrium"
 	kind "SharedLib"
 	language "C++"
 
+	staticruntime "off"
+
+
 	-- for to use /MDd in premake: 
 	-- staticruntime "off"
 	-- runtime "Debug"
@@ -108,6 +111,9 @@ project "Sandbox"
 	language "C++"
 
 	-- staticruntime "on"
+	-- On -> Sets RuntimeLibrary to Multithreaded
+	-- Off -> Sets RuntimeLibrary to MultithreadedDLL
+	staticruntime "off"
 
 	buildoptions { "/utf-8" }
 
