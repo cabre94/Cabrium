@@ -2,6 +2,7 @@
 
 #include "Application.h"
 
+#include "Common/Input.h"
 #include "Common/Log.h"
 #include "Common/Window.h"
 #include "Events/EventDispatcher.h"
@@ -37,6 +38,8 @@ void Application::run() {
 
         for (Layer *layer : layer_list)
             layer->onUpdate();
+
+        // CBRM_CORE_TRACE("[{0}, {0}]", Input::getMouseX(), Input::getMouseY());
 
         window->update();
     }
