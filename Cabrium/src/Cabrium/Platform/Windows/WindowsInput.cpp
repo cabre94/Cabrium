@@ -2,7 +2,6 @@
 
 #include "WindowsInput.h"
 
-// #include "Cabrium/Platform/Windows/WindowsWindow.h"
 #include "Cabrium/Application.h"
 
 #include <GLFW/glfw3.h>
