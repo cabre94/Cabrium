@@ -102,7 +102,7 @@ void WindowsWindow::setMouseButtonCallback(GLFWwindow *window, int button, int a
         MouseButtonReleasedEvent event((mouse::ButtonCode) button);
         pData->event_cb(event);
     } else {
-        CBRM_CORE_ASSERT("WindowsWindow::setMouseButtonCallback - unexpected action value {}", action);
+        CBRM_CORE_ASSERT(false, "WindowsWindow::setMouseButtonCallback - unexpected action value {0}", action);
     }
 }
 
