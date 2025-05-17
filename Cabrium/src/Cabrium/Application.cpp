@@ -46,7 +46,7 @@ void Application::run() {
 }
 
 void Application::onEvent(Event &e) {
-    CBRM_CORE_INFO("{0}", e);
+    // CBRM_CORE_INFO("{0}", e);
 
     EventDispatcher dispatcher(e);
     dispatcher.dispatch<WindowCloseEvent>(std::bind(&Application::onWindowCloseEvent, this, _1));

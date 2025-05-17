@@ -39,7 +39,7 @@ void ImGuiLayer::onAttach() {
 
     //
     // GLFWwindow *w = glfwGetCurrentContext();
-    Application &app = Application::getInstance();
+    Application &app   = Application::getInstance();
     GLFWwindow *window = static_cast<GLFWwindow *>(app.getWindow().getNativeWindow());
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -61,10 +61,10 @@ void ImGuiLayer::onUpdate() {
     ImGui::NewFrame();
 
     Application &app = Application::getInstance();
-    ImGuiIO &io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((float) app.getWindow().getWidth(), (float) app.getWindow().getHeight());
+    ImGuiIO &io      = ImGui::GetIO();
+    io.DisplaySize   = ImVec2((float) app.getWindow().getWidth(), (float) app.getWindow().getHeight());
 
-    float t = (float) glfwGetTime();
+    float t      = (float) glfwGetTime();
     io.DeltaTime = (t - data.time);
     // io.DeltaTime = data.time > 0.0f ? (t - data.time) : (1.0f / 60.0f);
     data.time = t;
@@ -77,17 +77,17 @@ void ImGuiLayer::onUpdate() {
 }
 
 void ImGuiLayer::onEvent(Event &event) {
-    CBRM_CORE_INFO("ImGuiLayer::onEvent - {0}", event);
+    // CBRM_CORE_INFO("ImGuiLayer::onEvent - {0}", event);
 
-    EventDispatcher dispatcher(event);
-    // dispatcher.dispatch<WindowFocusEvent>(std::bind(&ImGuiLayer::onWindowFocusEvent, this, _1));
-    // dispatcher.dispatch<MouseEnterEvent>(std::bind(&ImGuiLayer::onMouseEnterEvent, this, _1));
-    // dispatcher.dispatch<MouseMovedEvent>(std::bind(&ImGuiLayer::onMouseMovedEvent, this, _1));
-    // dispatcher.dispatch<MouseButtonPressedEvent>(std::bind(&ImGuiLayer::onMouseButtonPressedEvent, this, _1));
-    // dispatcher.dispatch<MouseButtonReleasedEvent>(std::bind(&ImGuiLayer::onMouseButtonReleasedEvent, this, _1));
-    // dispatcher.dispatch<MouseScrolledEvent>(std::bind(&ImGuiLayer::onMouseScrolledEvent, this, _1));
-    //  dispatcher.dispatch<KeyPressedEvent>(std::bind(&ImGuiLayer::onKeyPressedEvent, this, _1));
-    //  dispatcher.dispatch<KeyReleasedEvent>(std::bind(&ImGuiLayer::onKeyReleasedEvent, this, _1));
+    // EventDispatcher dispatcher(event);
+    //  dispatcher.dispatch<WindowFocusEvent>(std::bind(&ImGuiLayer::onWindowFocusEvent, this, _1));
+    //  dispatcher.dispatch<MouseEnterEvent>(std::bind(&ImGuiLayer::onMouseEnterEvent, this, _1));
+    //  dispatcher.dispatch<MouseMovedEvent>(std::bind(&ImGuiLayer::onMouseMovedEvent, this, _1));
+    //  dispatcher.dispatch<MouseButtonPressedEvent>(std::bind(&ImGuiLayer::onMouseButtonPressedEvent, this, _1));
+    //  dispatcher.dispatch<MouseButtonReleasedEvent>(std::bind(&ImGuiLayer::onMouseButtonReleasedEvent, this, _1));
+    //  dispatcher.dispatch<MouseScrolledEvent>(std::bind(&ImGuiLayer::onMouseScrolledEvent, this, _1));
+    //   dispatcher.dispatch<KeyPressedEvent>(std::bind(&ImGuiLayer::onKeyPressedEvent, this, _1));
+    //   dispatcher.dispatch<KeyReleasedEvent>(std::bind(&ImGuiLayer::onKeyReleasedEvent, this, _1));
 }
 
 // TODO: Remove?
