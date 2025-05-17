@@ -17,9 +17,11 @@ IncludeDir["glad"] = "Cabrium/vendor/glad/include"
 IncludeDir["imgui"] = "Cabrium/vendor/imgui"
 
 -- include premake file added on GLFW
-include "Cabrium/vendor/GLFW"
-include "Cabrium/vendor/glad"
-include "Cabrium/vendor/imgui"
+group "Dependencies"
+	include "Cabrium/vendor/GLFW"
+	include "Cabrium/vendor/glad"
+	include "Cabrium/vendor/imgui"
+group ""
 
 project "Cabrium"
 	location "Cabrium"
