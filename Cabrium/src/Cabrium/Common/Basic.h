@@ -19,14 +19,14 @@
         {                                                         \
             if (!(x)) {                                           \
                 CBRM_ERROR("Assertion failed: {0}", __VA_ARGS__); \
-                __debugbreak();)                                  \
+                __debugbreak();                                   \
             }                                                     \
         }
-    #define CBRM_CORE_ASSERT(...)                                      \
+    #define CBRM_CORE_ASSERT(x, ...)                                   \
         {                                                              \
             if (!(x)) {                                                \
                 CBRM_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__); \
-                __debugbreak();)                                       \
+                __debugbreak();                                        \
             }                                                          \
         }
 #else
