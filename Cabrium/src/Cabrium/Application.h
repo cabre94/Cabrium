@@ -2,11 +2,12 @@
 
 #include <memory>
 
-#include "Common/Basic.h"
-#include "Common/LayerList.h"
-#include "Common/Window.h"
-#include "Events/AppEvent.h"
-#include "Events/WindowEvent.h"
+#include "Cabrium/Common/Basic.h"
+#include "Cabrium/Common/LayerList.h"
+#include "Cabrium/Common/Window.h"
+#include "Cabrium/Events/AppEvent.h"
+#include "Cabrium/Events/WindowEvent.h"
+#include "Cabrium/ImGui/ImGuiLayer.h"
 
 namespace cabrium {
 
@@ -33,6 +34,8 @@ private:
     bool onWindowCloseEvent(WindowCloseEvent &e);
 
     std::unique_ptr<Window> window;
+
+    ImGuiLayer *imgui_layer;
 
     bool running = true;
 

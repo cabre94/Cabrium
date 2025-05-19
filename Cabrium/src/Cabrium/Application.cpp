@@ -25,6 +25,10 @@ Application::Application() {
     window = std::unique_ptr<Window>(Window::create());
 
     window->setEventCallback(std::bind(&Application::onEvent, this, _1));
+
+    // imgui_layer = std::make_unique<ImGuiLayer>();
+    imgui_layer = new ImGuiLayer();
+    pushLayer(imgui_layer);
 }
 
 Application::~Application() {}
@@ -38,6 +42,11 @@ void Application::run() {
 
         for (Layer *layer : layer_list)
             layer->onUpdate();
+
+        imgui_layer->begin();
+        for (Layer *layer : layer_list)
+            layer->onImGuiRender();
+        imgui_layer->end();
 
         // CBRM_CORE_TRACE("[{0}, {0}]", Input::getMouseX(), Input::getMouseY());
 

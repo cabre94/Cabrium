@@ -19,7 +19,7 @@ class Sandbox : public cabrium::Application {
 public:
     Sandbox() {
         pushLayer(new DummyLayer());
-        pushLayer(new cabrium::ImGuiLayer());
+        // pushLayer(new cabrium::ImGuiLayer());
     }
     ~Sandbox() {}
 };
