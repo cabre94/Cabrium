@@ -136,6 +136,7 @@ project "Sandbox"
 	{
 		"Cabrium/vendor/spdlog/include",
 		"Cabrium/src",
+		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}"
 	}
 
