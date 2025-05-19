@@ -7,8 +7,10 @@ namespace cabrium {
 LayerList::LayerList() : layers(), layerInsertPos(layers.begin()) {}
 
 LayerList::~LayerList() {
-    for (auto layer : layers)
+    for (auto layer : layers) {
+        layer->onDetach();
         delete layer;
+    }
 }
 
 void LayerList::pushLayer(Layer *layer) {
@@ -25,6 +27,7 @@ void LayerList::popLayer(Layer *layer) {
     auto it = std::find(layers.begin(), layerInsertPos, layer);
 
     if (it != layerInsertPos) {
+        (*it)->onDetach();
         layers.erase(it);
         --layerInsertPos;
     }
@@ -34,8 +37,10 @@ void LayerList::popOverlay(Layer *overlay) {
     // Search overlay only on overlay zone (from layerInsertPos up to the end)
     auto it = std::find(layerInsertPos, layers.end(), overlay);
 
-    if (it != layers.end())
+    if (it != layers.end()) {
+        (*it)->onDetach();
         layers.erase(it);
+    }
 }
 
 } // namespace cabrium

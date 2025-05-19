@@ -20,6 +20,8 @@ public:
     virtual void onUpdate() {}
     virtual void onEvent(Event &event) {}
 
+    virtual void onImGuiRender() {}
+
     inline const std::string getName() { return name; }
 
 protected:
