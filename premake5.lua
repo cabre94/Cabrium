@@ -88,19 +88,16 @@ project "Cabrium"
 
 	filter "configurations:Debug"
 		defines "CABRIUM_DEBUG"
-		-- buildoptions "/MDd"
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CABRIUM_RELEASE"
-		-- buildoptions "/MD"
 		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CABRIUM_DIST"
-		-- buildoptions "/MD"
 		runtime "Release"
 		optimize "On"
 

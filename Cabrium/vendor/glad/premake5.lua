@@ -1,22 +1,18 @@
 project "Glad"
 	kind "StaticLib"
 	language "C"
-	-- staticruntime "off"
-	-- staticruntime "on"
-	warnings "off"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("build/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
+	files {
 		"include/glad/glad.h",
 		"include/KHR/khrplatform.h",
 		"src/glad.c",
 	}
 
-	includedirs
-	{
+	includedirs {
 		"include"
 	}
 
