@@ -86,12 +86,6 @@ project "Cabrium"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			("{MKDIR} ../bin/" .. outputdir .. "/Sandbox/"),
-			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/")
-		}
-
 	filter "configurations:Debug"
 		defines "CABRIUM_DEBUG"
 		-- buildoptions "/MDd"
