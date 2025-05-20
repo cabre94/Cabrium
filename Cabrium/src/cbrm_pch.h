@@ -14,3 +14,6 @@
 #ifdef CBRM_PLATFORM_WINDOWS
     #include "Windows.h"
 #endif
+
+#include "Cabrium/Common/Assert.h"
+#include "Cabrium/Common/Log.h"
