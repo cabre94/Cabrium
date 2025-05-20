@@ -26,10 +26,14 @@ group ""
 
 project "Cabrium"
 	location "Cabrium"
-	kind "SharedLib"
-	language "C++"
+	kind "StaticLib" -- "SharedLib"
+	staticruntime "on" -- static -> on, shared -> off
+	-- On -> Sets RuntimeLibrary to Multithreaded
+	-- Off -> Sets RuntimeLibrary to MultithreadedDLL
 
-	staticruntime "off"
+	language "C++"
+	cppdialect "c++20"
+
 
 
 	-- for to use /MDd in premake: 
@@ -75,14 +79,11 @@ project "Cabrium"
 	}
 
 	filter "system:windows"
-		cppdialect "c++20"
-		-- staticruntime "On"
 		systemversion "latest"
 
 		defines
 		{
 			"CBRM_PLATFORM_WINDOWS",
-			"CBRM_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
@@ -106,11 +107,12 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "c++20"
 
 	-- staticruntime "on"
 	-- On -> Sets RuntimeLibrary to Multithreaded
 	-- Off -> Sets RuntimeLibrary to MultithreadedDLL
-	staticruntime "off"
+	staticruntime "on" -- static -> on, shared -> off
 
 	buildoptions { "/utf-8" }
 
@@ -137,8 +139,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "c++20"
-		--staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -148,18 +148,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "CABRIUM_DEBUG"
-		-- buildoptions "/MDd"
 		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CABRIUM_RELEASE"
-		-- buildoptions "/MD"
 		runtime "Release"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CABRIUM_DIST"
-		-- buildoptions "/MD"
 		runtime "Release"
 		optimize "On"
