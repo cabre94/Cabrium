@@ -3,9 +3,7 @@
 #include "WindowsWindow.h"
 
 #include "Cabrium/Common/Log.h"
-// #include "Cabrium/Events/WindowEvent.h"
-
-#include <glad/glad.h>
+#include "Cabrium/Platform/OpenGL/OpenGLContext.h"
 
 namespace cabrium {
 
@@ -13,27 +11,6 @@ namespace cabrium {
 
 // One implementation per platform
 Window *Window::create(const WindowProps &props) { return new WindowsWindow(props); }
-
-void WindowsWindow::update() {
-    /* Swap front and back buffers */
-    glfwSwapBuffers(window);
-
-    /* Poll for and process events */
-    glfwPollEvents();
-}
-
-void WindowsWindow::setVSync(bool enabled) {
-
-    // if (enabled) {
-    //     glfwSwapInterval(1);
-    // } else {
-    //     glfwSwapInterval(0);
-    // }
-
-    glfwSwapInterval((int) enabled);
-
-    data.vSync = enabled;
-}
 
 void WindowsWindow::init(const WindowProps &props_) {
 
@@ -59,17 +36,13 @@ void WindowsWindow::init(const WindowProps &props_) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(data.props.width, data.props.height, data.props.title.c_str(), NULL, NULL);
+    window = glfwCreateWindow(data.props.width, data.props.height, data.props.title.c_str(), nullptr, nullptr);
     if (!window) {
         return shutdown();
     }
 
-    // Make the window's context current
-    glfwMakeContextCurrent(window);
-
-    // Glad initialization
-    int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-    CBRM_CORE_ASSERT(status, "Glad initialization failed");
+    context = new OpenGLContext(window);
+    context->init();
 
     glfwSetWindowUserPointer(window, &data);
     setVSync(true);
@@ -103,6 +76,29 @@ void WindowsWindow::shutdown() {
     window = nullptr;
 
     // glfwTerminate(); // TODO
+
+    delete context;
+}
+
+void WindowsWindow::update() {
+
+    context->swapBuffers();
+
+    /* Poll for and process events */
+    glfwPollEvents();
+}
+
+void WindowsWindow::setVSync(bool enabled) {
+
+    // if (enabled) {
+    //     glfwSwapInterval(1);
+    // } else {
+    //     glfwSwapInterval(0);
+    // }
+
+    glfwSwapInterval((int) enabled);
+
+    data.vSync = enabled;
 }
 
 } // namespace cabrium

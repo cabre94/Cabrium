@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cabrium/Common/Window.h"
+#include "Cabrium/Render/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -28,10 +29,12 @@ private:
 
     GLFWwindow *window = nullptr;
 
+    GraphicsContext *context;
+
     struct Data {
         WindowProps props;
 
-        bool vSync = false;
+        bool vSync       = false;
         eventCb event_cb = nullptr;
     };
 
