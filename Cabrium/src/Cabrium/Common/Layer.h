@@ -10,7 +10,7 @@ namespace cabrium {
 #pragma warning(push)
 #pragma warning(disable : 4251)
 
-class CBRM_API Layer {
+class Layer {
 public:
     Layer(const std::string &name_) : name(name_) {}
     virtual ~Layer() {}

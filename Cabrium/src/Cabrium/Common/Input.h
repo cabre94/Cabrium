@@ -6,7 +6,7 @@
 
 namespace cabrium {
 
-class CBRM_API Input {
+class Input {
 public:
     Input() {}
     ~Input() {}
@@ -19,7 +19,7 @@ public:
     static float getMouseY() { return instance->getMouseYPlatform(); }
 
 protected:
-    virtual bool isKeyPressedPlatform(key::KeyCode key_code) = 0;
+    virtual bool isKeyPressedPlatform(key::KeyCode key_code)                 = 0;
     virtual bool isMouseButtonPressedPlatform(mouse::ButtonCode button_code) = 0;
 
     virtual float getMouseXPlatform() = 0;

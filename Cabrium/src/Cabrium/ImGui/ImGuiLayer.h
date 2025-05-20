@@ -8,7 +8,7 @@
 
 namespace cabrium {
 
-class CBRM_API ImGuiLayer : public Layer {
+class ImGuiLayer : public Layer {
 public:
     ImGuiLayer() : Layer("ImGui-Layer") {}
     virtual ~ImGuiLayer() {}

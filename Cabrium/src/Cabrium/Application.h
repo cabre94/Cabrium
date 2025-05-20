@@ -14,7 +14,7 @@ namespace cabrium {
 #pragma warning(push)
 #pragma warning(disable : 4251)
 
-class CBRM_API Application {
+class Application {
 public:
     Application();
     virtual ~Application();

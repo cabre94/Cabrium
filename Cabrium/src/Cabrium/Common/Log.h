@@ -6,10 +6,7 @@
 
 namespace cabrium {
 
-#pragma warning(push)
-#pragma warning(disable : 4251)
-
-class CBRM_API Log {
+class Log {
 public:
     static void init();
 
@@ -20,8 +17,6 @@ private:
     static std::shared_ptr<spdlog::logger> s_core_logger;
     static std::shared_ptr<spdlog::logger> s_client_logger;
 };
-
-#pragma warning(pop)
 
 } // namespace cabrium
 
