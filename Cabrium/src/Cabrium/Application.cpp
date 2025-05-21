@@ -61,6 +61,33 @@ Application::Application() {
 
     uint32_t idx[3] = {0, 1, 2};
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(idx), idx, GL_STATIC_DRAW);
+
+    std::string vertex_src = R"(
+        #version 330 core
+
+        layout(location = 0) in vec3 pos;
+
+        out vec3 v_pos;
+
+        void main() {
+            v_pos = pos;
+            gl_Position = vec4(pos, 1.0);
+        }
+    )";
+
+    std::string frag_src = R"(
+        #version 330 core
+
+        layout(location = 0) out vec4 color;
+
+        in vec3 v_pos;
+
+        void main() {
+            color = vec4(v_pos * 0.5 + 0.5, 0.8);
+        }
+    )";
+
+    shader = std::make_unique<Shader>(vertex_src, frag_src);
 }
 
 Application::~Application() {}
@@ -71,6 +98,8 @@ void Application::run() {
         glClearColor(0.3f, 0.3f, 0.3f, 1);
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+        shader->bind();
 
         glBindVertexArray(vertex_arr);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);

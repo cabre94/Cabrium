@@ -45,6 +45,8 @@ private:
     uint32_t vertex_buff;
     uint32_t index_buff;
 
+    std::unique_ptr<Shader> shader;
+
     static Application *instance;
 };
 
