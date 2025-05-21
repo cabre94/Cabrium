@@ -9,10 +9,10 @@
 #include "Cabrium/Events/WindowEvent.h"
 #include "Cabrium/ImGui/ImGuiLayer.h"
 
-namespace cabrium {
+// Remove
+#include "Cabrium/Render/Shader.h"
 
-#pragma warning(push)
-#pragma warning(disable : 4251)
+namespace cabrium {
 
 class Application {
 public:
@@ -47,8 +47,6 @@ private:
 
     static Application *instance;
 };
-
-#pragma warning(pop)
 
 // To be defined in a client
 Application *createApplication();

@@ -2,10 +2,13 @@
 
 #include "Application.h"
 
-#include "Common/Input.h"
-#include "Common/Log.h"
-#include "Common/Window.h"
-#include "Events/EventDispatcher.h"
+#include "Cabrium/Common/Input.h"
+#include "Cabrium/Common/Log.h"
+#include "Cabrium/Common/Window.h"
+#include "Cabrium/Events/EventDispatcher.h"
+
+// Remove
+#include "Cabrium/Render/Shader.h"
 
 #include <glad/glad.h>
 
@@ -34,6 +37,7 @@ Application::Application() {
 
     // Vertex array
     glGenVertexArrays(1, &vertex_arr);
+    // glCreateVertexArrays();
     glBindVertexArray(vertex_arr);
 
     // Vertex buffer
