@@ -9,6 +9,7 @@ AlignTrailingComments: 'true'
 AllowAllArgumentsOnNextLine: 'true'
 AllowAllConstructorInitializersOnNextLine: 'true'
 AllowAllParametersOfDeclarationOnNextLine: 'true'
+# AllowShortArraysOnASingleLine: 'false'
 AllowShortBlocksOnASingleLine: 'true'
 # AllowShortCaseLabelsOnASingleLine: 'true'
 # AllowShortFunctionsOnASingleLine: Inline
@@ -24,7 +25,7 @@ BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: 'false'
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
-ColumnLimit: '120'
+ColumnLimit: '100'
 CompactNamespaces: 'false'
 ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 FixNamespaceComments: 'true'
