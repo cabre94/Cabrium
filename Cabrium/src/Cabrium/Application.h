@@ -41,6 +41,10 @@ private:
 
     LayerList layer_list;
 
+    uint32_t vertex_arr;
+    uint32_t vertex_buff;
+    uint32_t index_buff;
+
     static Application *instance;
 };
 

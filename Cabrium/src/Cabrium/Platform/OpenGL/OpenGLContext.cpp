@@ -3,6 +3,7 @@
 #include "OpenGLContext.h"
 
 #include "Cabrium/Common/Basic.h"
+#include "Cabrium/Common/Log.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -23,6 +24,14 @@ void OpenGLContext::init() {
     // Glad initialization
     int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     CBRM_CORE_ASSERT(status, "Glad initialization failed");
+
+    CBRM_CORE_INFO("glGetString(GL_VENDOR) = {0} - {1}", (const char *) glGetString(GL_VENDOR),
+                   (const char *) glGetString(GL_RENDERER));
+
+    CBRM_CORE_INFO("OpenGL information");
+    CBRM_CORE_INFO("Vendor: {0}", (const char *) glGetString(GL_VENDOR));
+    CBRM_CORE_INFO("Renderer: {0}", (const char *) glGetString(GL_RENDERER));
+    CBRM_CORE_INFO("Version: {0}", (const char *) glGetString(GL_VERSION));
 }
 
 void OpenGLContext::swapBuffers() {
