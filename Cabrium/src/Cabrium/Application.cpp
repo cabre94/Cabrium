@@ -8,6 +8,7 @@
 #include "Cabrium/Events/EventDispatcher.h"
 
 // Remove
+#include "Cabrium/Render/Buffers.h"
 #include "Cabrium/Render/Shader.h"
 
 #include <glad/glad.h>
@@ -40,27 +41,31 @@ Application::Application() {
     // glCreateVertexArrays();
     glBindVertexArray(vertex_arr);
 
-    // Vertex buffer
-    glGenBuffers(1, &vertex_buff);
-    glBindBuffer(GL_ARRAY_BUFFER, vertex_buff);
-
     float vertices[3 * 3] = {
         -0.5f, -0.5f, 0.0f, //
         0.5f,  -0.5f, 0.0f, //
         0.0f,  0.5f,  0.0f  //
     };
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    // Vertex buffer
+    // vertex_buff =
+    //    std::make_unique<IVertexBuffer>(IVertexBuffer::create(vertices, sizeof(vertices)));
+    vertex_buff.reset(IVertexBuffer::create(vertices, sizeof(vertices)));
+
+    vertex_buff->bind();
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
     // index buffer
-    glGenBuffers(1, &index_buff);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buff);
-
     uint32_t idx[3] = {0, 1, 2};
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(idx), idx, GL_STATIC_DRAW);
+
+    // glGenBuffers(1, &index_buff);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buff);
+    // index_buff =
+    //    std::make_unique<IIndexBuffer>(IIndexBuffer::create(idx, sizeof(idx) / sizeof(uint32_t)));
+    index_buff.reset(IIndexBuffer::create(idx, sizeof(idx) / sizeof(uint32_t)));
 
     std::string vertex_src = R"(
         #version 330 core
@@ -102,7 +107,7 @@ void Application::run() {
         shader->bind();
 
         glBindVertexArray(vertex_arr);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, index_buff->getIndexCnt(), GL_UNSIGNED_INT, nullptr);
 
         for (Layer *layer : layer_list)
             layer->onUpdate();

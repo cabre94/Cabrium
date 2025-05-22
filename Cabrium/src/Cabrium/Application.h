@@ -9,6 +9,8 @@
 #include "Cabrium/Events/WindowEvent.h"
 #include "Cabrium/ImGui/ImGuiLayer.h"
 
+#include "Cabrium/Render/Buffers.h"
+
 // Remove
 #include "Cabrium/Render/Shader.h"
 
@@ -42,10 +44,12 @@ private:
     LayerList layer_list;
 
     uint32_t vertex_arr;
-    uint32_t vertex_buff;
-    uint32_t index_buff;
+    // uint32_t vertex_buff;
+    // uint32_t index_buff;
 
     std::unique_ptr<Shader> shader;
+    std::unique_ptr<IVertexBuffer> vertex_buff;
+    std::unique_ptr<IIndexBuffer> index_buff;
 
     static Application *instance;
 };
