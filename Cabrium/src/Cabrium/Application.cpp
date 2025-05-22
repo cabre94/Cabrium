@@ -85,9 +85,15 @@ Application::Application() {
     //                        {ShaderDataType::Vec4, "a_Color"},
     //                        {ShaderDataType::Vec3, "a_Normal"}};
 
-    BufferLayout layout = {{ShaderDataType::Vec3, "a_Position"}, {ShaderDataType::Vec4, "a_Color"}};
+    {
+        BufferLayout layout = {{ShaderDataType::Vec3, "a_Position"},
+                               {ShaderDataType::Vec4, "a_Color"}};
 
-    uint32_t i = 0;
+        vertex_buff->setLayout(layout);
+    }
+
+    uint32_t i         = 0;
+    const auto &layout = vertex_buff->getLayout();
     for (const auto &element : layout) {
         glEnableVertexAttribArray(i);
         glVertexAttribPointer(i, element.getCount(), shaderDataType2GLType(element.type),
