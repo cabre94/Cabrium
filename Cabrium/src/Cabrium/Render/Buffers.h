@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Cabrium/Render/BufferLayout.h"
+
 #include <cstdint>
 
 namespace cabrium {
@@ -11,6 +13,9 @@ public:
 
     virtual void bind() const   = 0;
     virtual void unbind() const = 0;
+
+    virtual void setLayout(const BufferLayout &layout) = 0;
+    virtual const BufferLayout &getLayout()            = 0;
 
     static IVertexBuffer *create(const void *data, uint32_t sz);
 };

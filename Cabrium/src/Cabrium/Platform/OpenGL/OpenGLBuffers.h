@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cabrium/Render/BufferLayout.h"
 #include "Cabrium/Render/Buffers.h"
 
 namespace cabrium {
@@ -14,8 +15,13 @@ public:
     void bind() const override;
     void unbind() const override;
 
+    void setLayout(const BufferLayout &layout) override { buff_layout = layout; }
+    const BufferLayout &getLayout() override { return buff_layout; }
+
 private:
     uint32_t render_id;
+
+    BufferLayout buff_layout;
 };
 
 class IndexBuffer : public IIndexBuffer {
