@@ -11,7 +11,7 @@ AllowAllConstructorInitializersOnNextLine: 'true'
 AllowAllParametersOfDeclarationOnNextLine: 'true'
 # AllowShortArraysOnASingleLine: 'false'
 AllowShortBlocksOnASingleLine: 'true'
-# AllowShortCaseLabelsOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'true'
 # AllowShortFunctionsOnASingleLine: Inline
 # AllowShortIfStatementsOnASingleLine: WithoutElse
 # AllowShortLambdasOnASingleLine: All
