@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cabrium/Common/Assert.h"
+#include "Cabrium/Common/Utils.h"
 
 #include <cstdint>
 #include <string>
@@ -147,20 +148,8 @@ public:
     // uint32_t getStride() const { return stride; }
 
     // iterators
-    std::vector<BufferElement>::iterator begin() { return elements.begin(); }
-    std::vector<BufferElement>::iterator end() { return elements.end(); }
-    std::vector<BufferElement>::reverse_iterator rbegin() { return elements.rbegin(); }
-    std::vector<BufferElement>::reverse_iterator rend() { return elements.rend(); }
-
-    // const iterators
-    std::vector<BufferElement>::const_iterator begin() const { return elements.begin(); }
-    std::vector<BufferElement>::const_iterator end() const { return elements.end(); }
-    std::reverse_iterator<std::vector<BufferElement>::const_iterator> rbegin() const {
-        return elements.rbegin();
-    }
-    std::reverse_iterator<std::vector<BufferElement>::const_iterator> rend() const {
-        return elements.rend();
-    }
+    DECL_ITERATORS(BufferElement, vector, elements);
+    DECL_CONST_ITERATORS(BufferElement, vector, elements);
 
     uint32_t getStride() const { return stride; }
 

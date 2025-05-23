@@ -2,6 +2,8 @@
 
 #include "Layer.h"
 
+#include "Cabrium/Common/Utils.h"
+
 #include <algorithm>
 #include <list>
 
@@ -18,16 +20,19 @@ public:
     void popOverlay(Layer *overlay);
 
     // iterators
-    std::list<Layer *>::iterator begin() { return layers.begin(); }
-    std::list<Layer *>::iterator end() { return layers.end(); }
-    std::list<Layer *>::reverse_iterator rbegin() { return layers.rbegin(); }
-    std::list<Layer *>::reverse_iterator rend() { return layers.rend(); }
+    DECL_ITERATORS(Layer *, list, layers);
+    DECL_CONST_ITERATORS(Layer *, list, layers);
+    // std::list<Layer *>::iterator begin() { return layers.begin(); }
+    // std::list<Layer *>::iterator end() { return layers.end(); }
+    // std::list<Layer *>::reverse_iterator rbegin() { return layers.rbegin(); }
+    // std::list<Layer *>::reverse_iterator rend() { return layers.rend(); }
 
-    // const iterators
-    std::list<Layer *>::const_iterator begin() const { return layers.begin(); }
-    std::list<Layer *>::const_iterator end() const { return layers.end(); }
-    std::reverse_iterator<std::list<Layer *>::const_iterator> rbegin() const { return layers.rbegin(); }
-    std::reverse_iterator<std::list<Layer *>::const_iterator> rend() const { return layers.rend(); }
+    //// const iterators
+    // std::list<Layer *>::const_iterator begin() const { return layers.begin(); }
+    // std::list<Layer *>::const_iterator end() const { return layers.end(); }
+    // std::reverse_iterator<std::list<Layer *>::const_iterator> rbegin() const { return
+    // layers.rbegin(); } std::reverse_iterator<std::list<Layer *>::const_iterator> rend() const {
+    // return layers.rend(); }
 
 private:
     std::list<Layer *> layers;
