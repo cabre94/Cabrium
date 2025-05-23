@@ -11,36 +11,13 @@
 #include "Cabrium/Render/BufferLayout.h"
 #include "Cabrium/Render/Buffers.h"
 #include "Cabrium/Render/Shader.h"
+#include "Cabrium/Render/VertexArray.h"
 
 #include <glad/glad.h>
 
 using namespace std::placeholders;
 
 namespace cabrium {
-
-static GLenum shaderDataType2GLType(ShaderDataType type) {
-    switch (type) {
-        case ShaderDataType::Vec1:
-        case ShaderDataType::Vec2:
-        case ShaderDataType::Vec3:
-        case ShaderDataType::Vec4:
-        case ShaderDataType::Mat3:
-        case ShaderDataType::Mat4: return GL_FLOAT;
-
-        case ShaderDataType::Int1:
-        case ShaderDataType::Int2:
-        case ShaderDataType::Int3:
-        case ShaderDataType::Int4: return GL_INT;
-
-        case ShaderDataType::Bool: return GL_BOOL;
-
-        case ShaderDataType::None:
-
-        default:
-            CBRM_CORE_ASSERT(false, "shaderDataType2GLType - invalid ShaderDataType");
-            return 0;
-    }
-}
 
 Application *Application::instance = nullptr;
 
@@ -58,11 +35,9 @@ Application::Application() {
     pushLayer(imgui_layer);
 
     // shader
-
     // Vertex array
-    glGenVertexArrays(1, &vertex_arr);
-    // glCreateVertexArrays();
-    glBindVertexArray(vertex_arr);
+    vertex_arr = std::unique_ptr<IVertexArray>(IVertexArray::create());
+    vertex_arr->bind();
 
     float vertices[3 * 7] = {
         -0.5f, -0.5f, 0.0f,       // first 3 vertices
@@ -76,43 +51,23 @@ Application::Application() {
     };
 
     // Vertex buffer
-    // vertex_buff =
-    //    std::make_unique<IVertexBuffer>(IVertexBuffer::create(vertices, sizeof(vertices)));
-    vertex_buff.reset(IVertexBuffer::create(vertices, sizeof(vertices)));
+    std::shared_ptr<IVertexBuffer> vertex_buff(IVertexBuffer::create(vertices, sizeof(vertices)));
     vertex_buff->bind();
 
-    // BufferLayout layout = {{ShaderDataType::Vec3, "a_Position"},
-    //                        {ShaderDataType::Vec4, "a_Color"},
-    //                        {ShaderDataType::Vec3, "a_Normal"}};
+    BufferLayout layout = {{ShaderDataType::Vec3, "a_Position"}, {ShaderDataType::Vec4, "a_Color"}};
 
-    {
-        BufferLayout layout = {{ShaderDataType::Vec3, "a_Position"},
-                               {ShaderDataType::Vec4, "a_Color"}};
+    vertex_buff->setLayout(layout);
 
-        vertex_buff->setLayout(layout);
-    }
-
-    uint32_t i         = 0;
-    const auto &layout = vertex_buff->getLayout();
-    for (const auto &element : layout) {
-        glEnableVertexAttribArray(i);
-        glVertexAttribPointer(i, element.getCount(), shaderDataType2GLType(element.type),
-                              element.normalized ? GL_TRUE : GL_FALSE, layout.getStride(),
-                              (const void *) element.offset);
-
-        i++;
-    }
+    // Layout has to be set before!
+    vertex_arr->addBuffer(vertex_buff);
 
     // index buffer
     uint32_t idx[3] = {0, 1, 2};
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(idx), idx, GL_STATIC_DRAW);
-
-    // glGenBuffers(1, &index_buff);
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buff);
-    // index_buff =
-    //    std::make_unique<IIndexBuffer>(IIndexBuffer::create(idx, sizeof(idx) / sizeof(uint32_t)));
-    index_buff.reset(IIndexBuffer::create(idx, sizeof(idx) / sizeof(uint32_t)));
+    std::shared_ptr<IIndexBuffer> index_buff(
+        IIndexBuffer::create(idx, sizeof(idx) / sizeof(uint32_t)));
     index_buff->bind();
+
+    vertex_arr->setIndexBuffer(index_buff);
 
     std::string vertex_src = R"(
         #version 330 core
@@ -145,6 +100,61 @@ Application::Application() {
     )";
 
     shader = std::make_unique<Shader>(vertex_src, frag_src);
+    // -------------------------------------------------------
+    // ----------------- Square Vertex Array -----------------
+    // -------------------------------------------------------
+    float square_vertices[3 * 4] = {
+        -0.5f, -0.5f, 0.0f, // first 3 vertices
+        0.5f,  -0.5f, 0.0f, //
+        0.5f,  0.5f,  0.0f, //
+        -0.5f, 0.5f,  0.0f, //
+    };
+
+    square_va = std::unique_ptr<IVertexArray>(IVertexArray::create());
+    std::shared_ptr<IVertexBuffer> square_vb(
+        IVertexBuffer::create(square_vertices, sizeof(square_vertices)));
+
+    BufferLayout square_layout = {{ShaderDataType::Vec3, "a_Position"}};
+
+    square_vb->setLayout(square_layout);
+
+    square_va->addBuffer(square_vb); // Layout has to be set before!
+
+    // index buffer
+    // uint32_t square_idx[4] = {0, 1, 2, 3};
+    uint32_t square_idx[6] = {0, 1, 2, 2, 3, 0};
+
+    std::shared_ptr<IIndexBuffer> square_ib(
+        IIndexBuffer::create(square_idx, sizeof(square_idx) / sizeof(uint32_t)));
+    square_ib->bind();
+    square_va->setIndexBuffer(square_ib);
+
+    std::string vertex_src_square = R"(
+        #version 330 core
+
+        layout(location = 0) in vec3 pos;
+
+        out vec3 v_pos;
+
+        void main() {
+            v_pos = pos;
+            gl_Position = vec4(pos, 1.0);
+        }
+    )";
+
+    std::string frag_src_square = R"(
+        #version 330 core
+
+        layout(location = 0) out vec4 color;
+
+        in vec3 v_pos;
+
+        void main() {
+            color = vec4(0.2f, 0.3f, 0.9f, 0.8);
+        }
+    )";
+
+    square_shader = std::make_unique<Shader>(vertex_src_square, frag_src_square);
 }
 
 Application::~Application() {}
@@ -156,10 +166,15 @@ void Application::run() {
         glClear(GL_COLOR_BUFFER_BIT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        shader->bind();
+        square_shader->bind();
+        square_va->bind();
+        glDrawElements(GL_TRIANGLES, square_va->getIndexBuffer()->getIndexCnt(), GL_UNSIGNED_INT,
+                       nullptr);
 
-        glBindVertexArray(vertex_arr);
-        glDrawElements(GL_TRIANGLES, index_buff->getIndexCnt(), GL_UNSIGNED_INT, nullptr);
+        shader->bind();
+        vertex_arr->bind();
+        glDrawElements(GL_TRIANGLES, vertex_arr->getIndexBuffer()->getIndexCnt(), GL_UNSIGNED_INT,
+                       nullptr);
 
         for (Layer *layer : layer_list)
             layer->onUpdate();

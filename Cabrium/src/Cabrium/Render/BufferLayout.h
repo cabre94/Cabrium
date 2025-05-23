@@ -107,12 +107,12 @@ struct BufferElement {
 
 class BufferLayout {
 public:
-    BufferLayout(const std::initializer_list<BufferElement> &elements_)
+    BufferLayout(const std::initializer_list<BufferElement> &elements_ = {})
         : stride(0), elements(elements_) {
         updateParams();
     }
 
-    BufferLayout() {} // ¿?
+    // BufferLayout() {} // ¿?
 
     ~BufferLayout() {}
 
