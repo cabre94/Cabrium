@@ -13,7 +13,9 @@
 #include "Cabrium/Render/Shader.h"
 #include "Cabrium/Render/VertexArray.h"
 
-#include <glad/glad.h>
+#include "Cabrium/Render/Renderer.h"
+
+// #include <glad/glad.h>
 
 using namespace std::placeholders;
 
@@ -104,10 +106,10 @@ Application::Application() {
     // ----------------- Square Vertex Array -----------------
     // -------------------------------------------------------
     float square_vertices[3 * 4] = {
-        -0.5f, -0.5f, 0.0f, // first 3 vertices
-        0.5f,  -0.5f, 0.0f, //
-        0.5f,  0.5f,  0.0f, //
-        -0.5f, 0.5f,  0.0f, //
+        -0.75f, -0.75f, 0.0f, // first 3 vertices
+        0.75f,  -0.75f, 0.0f, //
+        0.75f,  0.75f,  0.0f, //
+        -0.75f, 0.75f,  0.0f, //
     };
 
     square_va = std::unique_ptr<IVertexArray>(IVertexArray::create());
@@ -162,19 +164,18 @@ Application::~Application() {}
 void Application::run() {
 
     while (running) {
-        glClearColor(0.3f, 0.3f, 0.3f, 1);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        RenderCmd::setClearColor({0.3f, 0.3f, 0.3f, 1});
+        RenderCmd::clear();
+
+        Renderer::beginScene(); // Renderer::beginScene(camera, lights, enviroments);
 
         square_shader->bind();
-        square_va->bind();
-        glDrawElements(GL_TRIANGLES, square_va->getIndexBuffer()->getIndexCnt(), GL_UNSIGNED_INT,
-                       nullptr);
+        Renderer::submit(square_va);
 
         shader->bind();
-        vertex_arr->bind();
-        glDrawElements(GL_TRIANGLES, vertex_arr->getIndexBuffer()->getIndexCnt(), GL_UNSIGNED_INT,
-                       nullptr);
+        Renderer::submit(vertex_arr);
+
+        Renderer::endScene();
 
         for (Layer *layer : layer_list)
             layer->onUpdate();
