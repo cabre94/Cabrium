@@ -10,6 +10,7 @@
 #include "Cabrium/ImGui/ImGuiLayer.h"
 
 #include "Cabrium/Render/Buffers.h"
+#include "Cabrium/Render/OrthographicCamera.h"
 #include "Cabrium/Render/VertexArray.h"
 
 // Remove
@@ -46,13 +47,11 @@ private:
 
     std::shared_ptr<Shader> shader;
     std::shared_ptr<IVertexArray> vertex_arr;
-    // std::shared_ptr<IVertexBuffer> vertex_buff;
-    // std::shared_ptr<IIndexBuffer> index_buff;
 
     std::shared_ptr<Shader> square_shader;
     std::shared_ptr<IVertexArray> square_va;
-    // std::shared_ptr<IVertexBuffer> square_vb;
-    // std::shared_ptr<IIndexBuffer> square_ib;
+
+    OrthographicCamera camera;
 
     static Application *instance;
 };

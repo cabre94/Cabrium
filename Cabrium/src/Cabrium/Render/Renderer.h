@@ -1,16 +1,20 @@
 #pragma once
 
+#include "Cabrium/Render/OrthographicCamera.h"
 #include "Cabrium/Render/RenderAPI.h"
 #include "Cabrium/Render/RenderCmd.h"
+#include "Cabrium/Render/Shader.h"
+
+#include <glm/glm.hpp>
 
 namespace cabrium {
 
 class Renderer {
 
 public:
-    static void beginScene();
+    static void beginScene(OrthographicCamera &camera);
     static void endScene();
-    static void submit(std::shared_ptr<IVertexArray> &va);
+    static void submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va);
 
     // static void clear();
 
@@ -24,6 +28,13 @@ public:
 
 private:
     // stat
+    // OrthographicCamera &camera;
+
+    struct SceneData {
+        glm::mat4 view_proj_matrix;
+    };
+
+    static SceneData *scene_data;
 };
 
 } // namespace cabrium

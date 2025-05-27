@@ -3,6 +3,7 @@
 #include "Shader.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace cabrium {
 
@@ -114,5 +115,24 @@ Shader::~Shader() { glDeleteProgram(render_id); }
 void Shader::bind() const { glUseProgram(render_id); }
 
 void Shader::unbind() const { glUseProgram(0); }
+
+void Shader::setUnirformMatrix4f(const std::string &name, const glm::mat4 &mat4) {
+    // Assume already bind
+    glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat4));
+}
+
+int32_t Shader::getUniformLocation(const std::string &name) {
+
+    if (uniform_loc_cache.find(name) != uniform_loc_cache.end())
+        return uniform_loc_cache[name];
+
+    int32_t location = glGetUniformLocation(render_id, name.c_str());
+    if (location == -1) {
+        std::cout << "Shader::getUniformLocation uniform " << name << " doesn't exist\n";
+    }
+    uniform_loc_cache[name] = location;
+
+    return location;
+}
 
 } // namespace cabrium

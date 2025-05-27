@@ -13,9 +13,8 @@
 #include "Cabrium/Render/Shader.h"
 #include "Cabrium/Render/VertexArray.h"
 
+#include "Cabrium/Render/OrthographicCamera.h"
 #include "Cabrium/Render/Renderer.h"
-
-// #include <glad/glad.h>
 
 using namespace std::placeholders;
 
@@ -23,7 +22,14 @@ namespace cabrium {
 
 Application *Application::instance = nullptr;
 
-Application::Application() {
+#define CAMERA_RIGHT        5.0f
+#define CAMERA_LEFT         (-1 * CAMERA_RIGHT)
+#define CAMERA_SCALE_FACTOR 0.5625f
+#define CAMERA_BOTTOM       (CAMERA_LEFT * CAMERA_SCALE_FACTOR)
+#define CAMERA_TOP          (CAMERA_RIGHT * CAMERA_SCALE_FACTOR)
+
+Application::Application() : camera(CAMERA_LEFT, CAMERA_RIGHT, CAMERA_BOTTOM, CAMERA_TOP) {
+    // Application::Application() : camera(-1.0, 1.0, -1.0, 1.0) {
     CBRM_CORE_ASSERT(!instance, "Application::Application - already an instance");
     instance = this;
 
@@ -77,13 +83,15 @@ Application::Application() {
         layout(location = 0) in vec3 pos;
         layout(location = 1) in vec4 color;
 
+        uniform mat4 view_proj;
+
         out vec3 v_pos;
         out vec4 v_color;
 
         void main() {
             v_pos = pos;
             v_color = color;
-            gl_Position = vec4(pos, 1.0);
+            gl_Position = view_proj * vec4(pos, 1.0);
         }
     )";
 
@@ -136,11 +144,13 @@ Application::Application() {
 
         layout(location = 0) in vec3 pos;
 
+        uniform mat4 view_proj;
+
         out vec3 v_pos;
 
         void main() {
             v_pos = pos;
-            gl_Position = vec4(pos, 1.0);
+            gl_Position = view_proj * vec4(pos, 1.0);
         }
     )";
 
@@ -163,17 +173,20 @@ Application::~Application() {}
 
 void Application::run() {
 
+    static double t = 0;
     while (running) {
+        t += 5e-2;
         RenderCmd::setClearColor({0.3f, 0.3f, 0.3f, 1});
         RenderCmd::clear();
 
-        Renderer::beginScene(); // Renderer::beginScene(camera, lights, enviroments);
+        camera.setPosition({std::cos(t), std::sin(t * 0.7), 0.0f});
+        camera.setRotation(t * 100);
 
-        square_shader->bind();
-        Renderer::submit(square_va);
+        Renderer::beginScene(camera); // Renderer::beginScene(camera, lights, enviroments);
 
-        shader->bind();
-        Renderer::submit(vertex_arr);
+        Renderer::submit(square_shader, square_va);
+
+        Renderer::submit(shader, vertex_arr);
 
         Renderer::endScene();
 
