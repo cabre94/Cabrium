@@ -3,6 +3,7 @@
 #include "Cabrium/Application.h"
 
 // Common
+#include "Cabrium/Common/DeltaTime.h"
 #include "Cabrium/Common/Input.h"
 #include "Cabrium/Common/Layer.h"
 #include "Cabrium/Common/Log.h"

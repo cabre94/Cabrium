@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Cabrium/Common/Basic.h"
+#include "Cabrium/Common/DeltaTime.h"
 #include "Cabrium/Events/Event.h"
 
 #include <string>
@@ -14,7 +15,7 @@ public:
 
     virtual void onAttach() {}
     virtual void onDetach() {}
-    virtual void onUpdate() {}
+    virtual void onUpdate(DeltaTime dt) {}
     virtual void onEvent(Event &event) {}
 
     virtual void onImGuiRender() {}

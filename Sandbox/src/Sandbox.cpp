@@ -146,23 +146,26 @@ public:
         square_shader = std::make_unique<cabrium::Shader>(vertex_src_square, frag_src_square);
     }
 
-    void onUpdate() override {
+    void onUpdate(cabrium::DeltaTime dt) override {
 
-        // static float t = 0;
+        // CBRM_INFO("dt = {0}s - {1}ms", dt.getSeconds(), dt.getMilliSeconds());
+
         if (cabrium::Input::isKeyPressed(cabrium::key::Left))
-            camera_pos.x -= camera_move_speed;
+            camera_pos.x -= camera_move_speed * dt;
         else if (cabrium::Input::isKeyPressed(cabrium::key::Right))
-            camera_pos.x += camera_move_speed;
+            camera_pos.x += camera_move_speed * dt.getSeconds();
+
         if (cabrium::Input::isKeyPressed(cabrium::key::Up))
-            camera_pos.y += camera_move_speed;
+            camera_pos.y += camera_move_speed * dt;
         else if (cabrium::Input::isKeyPressed(cabrium::key::Down))
-            camera_pos.y -= camera_move_speed;
+            camera_pos.y -= camera_move_speed * dt;
 
         if (cabrium::Input::isKeyPressed(cabrium::key::A))
-            camera_rotation += camera_rotation_speed;
+            camera_rotation += camera_rotation_speed * dt;
         else if (cabrium::Input::isKeyPressed(cabrium::key::D))
-            camera_rotation -= camera_rotation_speed;
+            camera_rotation -= camera_rotation_speed * dt;
 
+        // static float t = 0;
         // t += 5e-2f;
         cabrium::RenderCmd::setClearColor({0.3f, 0.3f, 0.3f, 1});
         cabrium::RenderCmd::clear();
@@ -225,10 +228,10 @@ private:
     cabrium::OrthographicCamera camera;
 
     glm::vec4 camera_pos;
-    float camera_rotation = 0;
+    float camera_move_speed = 5.0f; // per second
 
-    float camera_move_speed     = 0.05f;
-    float camera_rotation_speed = 1.0f;
+    float camera_rotation       = 0;
+    float camera_rotation_speed = 90.0f; // degrees per second
 };
 
 class Sandbox : public cabrium::Application {

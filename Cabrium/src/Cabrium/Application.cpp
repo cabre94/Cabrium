@@ -2,19 +2,22 @@
 
 #include "Application.h"
 
+#include "Cabrium/Common/DeltaTime.h"
 #include "Cabrium/Common/Input.h"
 #include "Cabrium/Common/Log.h"
+#include "Cabrium/Common/PlatformUtils.h"
 #include "Cabrium/Common/Window.h"
+
 #include "Cabrium/Events/EventDispatcher.h"
 
-// Remove
-#include "Cabrium/Render/BufferLayout.h"
-#include "Cabrium/Render/Buffers.h"
-#include "Cabrium/Render/Shader.h"
-#include "Cabrium/Render/VertexArray.h"
-
-#include "Cabrium/Render/OrthographicCamera.h"
-#include "Cabrium/Render/Renderer.h"
+//// Remove
+// #include "Cabrium/Render/BufferLayout.h"
+// #include "Cabrium/Render/Buffers.h"
+// #include "Cabrium/Render/Shader.h"
+// #include "Cabrium/Render/VertexArray.h"
+//
+// #include "Cabrium/Render/OrthographicCamera.h"
+// #include "Cabrium/Render/Renderer.h"
 
 using namespace std::placeholders;
 
@@ -37,10 +40,15 @@ Application::~Application() {}
 
 void Application::run() {
 
+    float time;
     while (running) {
 
+        time         = Time::getTime();
+        DeltaTime dt = time - t_last_frame;
+        t_last_frame = time;
+
         for (Layer *layer : layer_list)
-            layer->onUpdate();
+            layer->onUpdate(dt);
 
         imgui_layer->begin();
         for (Layer *layer : layer_list)

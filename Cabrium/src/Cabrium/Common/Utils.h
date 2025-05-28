@@ -14,4 +14,4 @@
     }                                                                                \
     std::reverse_iterator<std::cont_type<type>::const_iterator> rend() const {       \
         return cont_name.rend();                                                     \
-    }\
+    }

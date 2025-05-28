@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Cabrium/Common/Basic.h"
+#include "Cabrium/Common/DeltaTime.h"
 #include "Cabrium/Common/LayerList.h"
 #include "Cabrium/Common/Window.h"
 #include "Cabrium/Events/AppEvent.h"
@@ -37,6 +38,9 @@ private:
     bool running = true;
 
     LayerList layer_list;
+
+    // DeltaTime time_step;
+    float t_last_frame;
 
     static Application *instance;
 };
