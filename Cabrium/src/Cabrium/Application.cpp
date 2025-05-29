@@ -10,15 +10,6 @@
 
 #include "Cabrium/Events/EventDispatcher.h"
 
-//// Remove
-// #include "Cabrium/Render/BufferLayout.h"
-// #include "Cabrium/Render/Buffers.h"
-// #include "Cabrium/Render/Shader.h"
-// #include "Cabrium/Render/VertexArray.h"
-//
-// #include "Cabrium/Render/OrthographicCamera.h"
-// #include "Cabrium/Render/Renderer.h"
-
 using namespace std::placeholders;
 
 namespace cabrium {

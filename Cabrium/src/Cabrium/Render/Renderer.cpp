@@ -15,13 +15,16 @@ void Renderer::beginScene(OrthographicCamera &camera) {
 
 void Renderer::endScene() {}
 
-void Renderer::submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va) {
-    // shader
+void Renderer::submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va,
+                      const glm::mat4 &transform) {
     shader->bind();
+    // one pershader per scene
     shader->setUnirformMatrix4f("view_proj", scene_data->view_proj_matrix);
 
-    // vertex array
-    va->bind();
+    // transform need to be done one per object
+    shader->setUnirformMatrix4f("transform", transform);
+
+    va->bind(); // vertex array
 
     RenderCmd::drawIndexed(va);
 }

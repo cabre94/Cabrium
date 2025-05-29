@@ -14,7 +14,8 @@ class Renderer {
 public:
     static void beginScene(OrthographicCamera &camera);
     static void endScene();
-    static void submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va);
+    static void submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va,
+                       const glm::mat4 &transform = glm::mat4{1.0f});
 
     // static void clear();
 

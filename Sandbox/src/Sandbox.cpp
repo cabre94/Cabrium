@@ -2,7 +2,10 @@
 
 #include "imgui.h"
 
-#define CAMERA_RIGHT        5.0f
+#include <glm/gtc/matrix_transform.hpp>
+
+#define CAMERA_RIGHT 1.6f
+// #define CAMERA_RIGHT        5.0f
 #define CAMERA_LEFT         (-1 * CAMERA_RIGHT)
 #define CAMERA_SCALE_FACTOR 0.5625f
 #define CAMERA_BOTTOM       (CAMERA_LEFT * CAMERA_SCALE_FACTOR)
@@ -61,6 +64,7 @@ public:
             layout(location = 1) in vec4 color;
 
             uniform mat4 view_proj;
+            uniform mat4 transform;
 
             out vec3 v_pos;
             out vec4 v_color;
@@ -68,7 +72,7 @@ public:
             void main() {
                 v_pos = pos;
                 v_color = color;
-                gl_Position = view_proj * vec4(pos, 1.0);
+                gl_Position = view_proj * transform * vec4(pos, 1.0);
             }
         )";
 
@@ -91,10 +95,10 @@ public:
         // ----------------- Square Vertex Array -----------------
         // -------------------------------------------------------
         float square_vertices[3 * 4] = {
-            -0.75f, -0.75f, 0.0f, // first 3 vertices
-            0.75f,  -0.75f, 0.0f, //
-            0.75f,  0.75f,  0.0f, //
-            -0.75f, 0.75f,  0.0f, //
+            -0.5f, -0.5f, 0.0f, // first 3 vertices
+            0.5f,  -0.5f, 0.0f, //
+            0.5f,  0.5f,  0.0f, //
+            -0.5f, 0.5f,  0.0f, //
         };
 
         square_va = std::unique_ptr<cabrium::IVertexArray>(cabrium::IVertexArray::create());
@@ -117,31 +121,32 @@ public:
         square_va->setIndexBuffer(square_ib);
 
         std::string vertex_src_square = R"(
-        #version 330 core
+            #version 330 core
 
-        layout(location = 0) in vec3 pos;
+            layout(location = 0) in vec3 pos;
 
-        uniform mat4 view_proj;
+            uniform mat4 view_proj;
+            uniform mat4 transform;
 
-        out vec3 v_pos;
+            out vec3 v_pos;
 
-        void main() {
-            v_pos = pos;
-            gl_Position = view_proj * vec4(pos, 1.0);
-        }
-    )";
+            void main() {
+                v_pos = pos;
+                gl_Position = view_proj * transform * vec4(pos, 1.0);
+            }
+        )";
 
         std::string frag_src_square = R"(
-        #version 330 core
+            #version 330 core
 
-        layout(location = 0) out vec4 color;
+            layout(location = 0) out vec4 color;
 
-        in vec3 v_pos;
+            in vec3 v_pos;
 
-        void main() {
-            color = vec4(0.2f, 0.3f, 0.9f, 0.8);
-        }
-    )";
+            void main() {
+                color = vec4(0.2f, 0.3f, 0.9f, 0.8);
+            }
+        )";
 
         square_shader = std::make_unique<cabrium::Shader>(vertex_src_square, frag_src_square);
     }
@@ -150,6 +155,7 @@ public:
 
         // CBRM_INFO("dt = {0}s - {1}ms", dt.getSeconds(), dt.getMilliSeconds());
 
+        // Camera
         if (cabrium::Input::isKeyPressed(cabrium::key::Left))
             camera_pos.x -= camera_move_speed * dt;
         else if (cabrium::Input::isKeyPressed(cabrium::key::Right))
@@ -165,6 +171,17 @@ public:
         else if (cabrium::Input::isKeyPressed(cabrium::key::D))
             camera_rotation -= camera_rotation_speed * dt;
 
+        // Square
+        if (cabrium::Input::isKeyPressed(cabrium::key::J))
+            square_pos.x -= square_move_speed * dt;
+        else if (cabrium::Input::isKeyPressed(cabrium::key::L))
+            square_pos.x += square_move_speed * dt.getSeconds();
+
+        if (cabrium::Input::isKeyPressed(cabrium::key::I))
+            square_pos.y += square_move_speed * dt;
+        else if (cabrium::Input::isKeyPressed(cabrium::key::K))
+            square_pos.y -= square_move_speed * dt;
+
         // static float t = 0;
         // t += 5e-2f;
         cabrium::RenderCmd::setClearColor({0.3f, 0.3f, 0.3f, 1});
@@ -177,39 +194,55 @@ public:
 
         cabrium::Renderer::beginScene(camera); // Renderer::beginScene(camera, lights, enviroments);
 
+#if 0
+        // glm::mat4 transform = glm::translate(glm::mat4(1.0f), square_pos);
+        glm::mat4 scale = glm::translate(glm::mat4(1.0f), glm::vec3(0.1f));
+
+        for (int i = 0; i < 2; ++i) {
+            glm::vec3 pos(i * 0.1f, 0.0f, 0.0f);
+            glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+            cabrium::Renderer::submit(square_shader, square_va, transform);
+        }
+#endif
+
+#if 0 // 1
         cabrium::Renderer::submit(square_shader, square_va);
         cabrium::Renderer::submit(shader, vertex_arr);
+#endif
+
+#if 0 // 2
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+        glm::mat4 transform = glm::translate(glm::mat4(1.0f), square_pos) * scale;
+        glm::mat4 transform2 =
+            glm::translate(glm::mat4(1.0f), square_pos + glm::vec3(1.0f)) * scale;
+
+        cabrium::Renderer::submit(square_shader, square_va, transform);
+        cabrium::Renderer::submit(square_shader, square_va, transform2);
+        cabrium::Renderer::submit(shader, vertex_arr);
+#endif
+
+        // glm::mat4 transform = glm::translate(glm::mat4(1.0f), square_pos);
+        static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+        for (int i = 0; i < 20; ++i) {
+            for (int j = 0; j < 20; ++j) {
+                glm::vec3 pos(i * 0.105f, j * 0.105f, 0.0f);
+                glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos + square_pos) * scale;
+                cabrium::Renderer::submit(square_shader, square_va, transform);
+            }
+        }
+
+        // cabrium::Renderer::submit(square_shader, square_va, transform);
+        // cabrium::Renderer::submit(shader, vertex_arr);
 
         cabrium::Renderer::endScene();
     }
 
-    bool onKeyPressedEvent(cabrium::KeyPressedEvent &e) {
-
-        // CBRM_INFO("onKeyPressedEvent - {0} ", e);
-
-        // if (e.getKeyCode() == cabrium::key::Left) {
-        //     camera_pos.x -= camera_move_speed;
-        // }
-
-        // switch (e.getKeyCode()) {
-        //     case cabrium::key::Left: camera_pos.x -= camera_move_speed; break;
-        //     case cabrium::key::Right: camera_pos.x += camera_move_speed; break;
-        //     case cabrium::key::Up: camera_pos.y += camera_move_speed; break;
-        //     case cabrium::key::Down: camera_pos.y -= camera_move_speed; break;
-        //     case cabrium::key::A: camera_rotation -= camera_move_speed; break;
-        //     case cabrium::key::D: camera_rotation += camera_move_speed; break;
-        //     default: break;
-        // }
-        // return false;
-    }
+    bool onKeyPressedEvent(cabrium::KeyPressedEvent &e) { return false; }
 
     void onEvent(cabrium::Event &e) override {
         // CBRM_TRACE("DummyLayer::onEvent - event {0}", e);
-
-        // cabrium::EventDispatcher dispatcher(e);
-
-        // dispatcher.dispatch<cabrium::KeyPressedEvent>(
-        //     std::bind(&DummyLayer::onKeyPressedEvent, this, _1));
     }
 
     void onImGuiRender() override {
@@ -229,9 +262,12 @@ private:
 
     glm::vec4 camera_pos;
     float camera_move_speed = 5.0f; // per second
+    float square_move_speed = 5.0f; // per second
 
     float camera_rotation       = 0;
     float camera_rotation_speed = 90.0f; // degrees per second
+
+    glm::vec3 square_pos{0.0f};
 };
 
 class Sandbox : public cabrium::Application {
@@ -243,7 +279,4 @@ public:
     ~Sandbox() {}
 };
 
-cabrium::Application *cabrium::createApplication() {
-    //
-    return new Sandbox();
-}
+cabrium::Application *cabrium::createApplication() { return new Sandbox(); }
