@@ -2,6 +2,8 @@
 
 #include "Renderer.h"
 
+#include "Cabrium/Platform/OpenGL/OpenGLShader.h"
+
 #include "Cabrium/Render/RenderCmd.h"
 
 namespace cabrium {
@@ -19,10 +21,11 @@ void Renderer::submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVe
                       const glm::mat4 &transform) {
     shader->bind();
     // one pershader per scene
-    shader->setUnirformMatrix4f("view_proj", scene_data->view_proj_matrix);
+    std::dynamic_pointer_cast<OpenGLShader>(shader)->setUnirformMatrix4f(
+        "view_proj", scene_data->view_proj_matrix);
 
     // transform need to be done one per object
-    shader->setUnirformMatrix4f("transform", transform);
+    std::dynamic_pointer_cast<OpenGLShader>(shader)->setUnirformMatrix4f("transform", transform);
 
     va->bind(); // vertex array
 

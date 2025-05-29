@@ -1,29 +1,14 @@
 #include "cbrm_pch.h"
 
-#include "Shader.h"
+#include "OpenGLShader.h"
 
-// #include <glad/glad.h>
-// #include <glm/gtc/type_ptr.hpp>
-
-#ifdef CBRM_PLATFORM_WINDOWS
-    #include "Cabrium/Platform/OpenGL/OpenGLShader.h"
-#else
-    #error Platform not supported
-#endif
+#include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace cabrium {
 
-Shader *Shader::create(const std::string &vertex_src, const std::string &frag_src) {
-
-#ifdef CBRM_PLATFORM_WINDOWS
-    return new OpenGLShader(vertex_src, frag_src);
-#else
-    CBRM_CORE_ASSERT(0);
-#endif
-}
-
-#if 0
-Shader::Shader(const std::string &vertex_src, const std::string &frag_src) : render_id(0) {
+OpenGLShader::OpenGLShader(const std::string &vertex_src, const std::string &frag_src)
+    : /*Shader(vertex_src, frag_src),*/ render_id(0) {
 
     // Create an empty vertex shader handle
     GLuint vertex_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -126,22 +111,42 @@ Shader::Shader(const std::string &vertex_src, const std::string &frag_src) : ren
     glDetachShader(render_id, fragment_shader);
 }
 
-Shader::~Shader() { glDeleteProgram(render_id); }
+OpenGLShader::~OpenGLShader() { glDeleteProgram(render_id); }
 
-void Shader::bind() const { glUseProgram(render_id); }
+void OpenGLShader::bind() const { glUseProgram(render_id); }
 
-void Shader::unbind() const { glUseProgram(0); }
+void OpenGLShader::unbind() const { glUseProgram(0); }
+
+void OpenGLShader::setUnirform1i(const std::string &name, int val) {
+    glUniform1i(getUniformLocation(name), val);
+}
+
+void OpenGLShader::setUnirform1f(const std::string &name, float val) {
+    glUniform1f(getUniformLocation(name), val);
+}
+
+void OpenGLShader::setUnirform2f(const std::string &name, const glm::vec2 &vec2) {
+    glUniform2f(getUniformLocation(name), vec2.x, vec2.y);
+}
+
+void OpenGLShader::setUnirform3f(const std::string &name, const glm::vec3 &vec3) {
+    glUniform3f(getUniformLocation(name), vec3.x, vec3.y, vec3.z);
+}
 
 // Set uniforms assume shader already bind
-void Shader::setUnirform4f(const std::string &name, const glm::vec4 &vec4) {
+void OpenGLShader::setUnirform4f(const std::string &name, const glm::vec4 &vec4) {
     glUniform4f(getUniformLocation(name), vec4.x, vec4.y, vec4.z, vec4.w);
 }
 
-void Shader::setUnirformMatrix4f(const std::string &name, const glm::mat4 &mat4) {
+void OpenGLShader::setUnirformMatrix3f(const std::string &name, const glm::mat3 &mat3) {
+    glUniformMatrix3fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat3));
+}
+
+void OpenGLShader::setUnirformMatrix4f(const std::string &name, const glm::mat4 &mat4) {
     glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat4));
 }
 
-int32_t Shader::getUniformLocation(const std::string &name) {
+int32_t OpenGLShader::getUniformLocation(const std::string &name) {
 
     if (uniform_loc_cache.find(name) != uniform_loc_cache.end())
         return uniform_loc_cache[name];
@@ -154,7 +159,5 @@ int32_t Shader::getUniformLocation(const std::string &name) {
 
     return location;
 }
-
-#endif
 
 } // namespace cabrium

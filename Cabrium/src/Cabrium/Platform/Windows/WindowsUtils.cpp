@@ -6,6 +6,6 @@
 
 namespace cabrium {
 
-float Time::getTime() { return glfwGetTime(); }
+float Time::getTime() { return (float) glfwGetTime(); }
 
 } // namespace cabrium

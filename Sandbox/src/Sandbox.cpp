@@ -1,11 +1,14 @@
 #include <Cabrium.h>
 
+#include "Cabrium/Platform/OpenGL/OpenGLShader.h"
+
 #include "imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-#define CAMERA_RIGHT 1.6f
-// #define CAMERA_RIGHT        5.0f
+// #define CAMERA_RIGHT 1.6f
+#define CAMERA_RIGHT        4.0f
 #define CAMERA_LEFT         (-1 * CAMERA_RIGHT)
 #define CAMERA_SCALE_FACTOR 0.5625f
 #define CAMERA_BOTTOM       (CAMERA_LEFT * CAMERA_SCALE_FACTOR)
@@ -90,7 +93,10 @@ public:
             }
         )";
 
-        shader = std::make_unique<cabrium::Shader>(vertex_src, frag_src);
+        // shader = std::make_unique<cabrium::Shader>(cabrium::Shader::create(vertex_src,
+        // frag_src));
+        shader.reset(cabrium::Shader::create(vertex_src, frag_src));
+
         // -------------------------------------------------------
         // ----------------- Square Vertex Array -----------------
         // -------------------------------------------------------
@@ -141,14 +147,17 @@ public:
 
             layout(location = 0) out vec4 color;
 
+            uniform vec3 u_color;
             in vec3 v_pos;
 
             void main() {
-                color = vec4(0.2f, 0.3f, 0.9f, 0.8);
+                color = vec4(u_color, 1.0);
             }
         )";
 
-        square_shader = std::make_unique<cabrium::Shader>(vertex_src_square, frag_src_square);
+        /*       square_shader = std::make_unique<cabrium::Shader>(
+                   cabrium::Shader::create(vertex_src_square, frag_src_square));*/
+        square_shader.reset(cabrium::Shader::create(vertex_src_square, frag_src_square));
     }
 
     void onUpdate(cabrium::DeltaTime dt) override {
@@ -194,61 +203,62 @@ public:
 
         cabrium::Renderer::beginScene(camera); // Renderer::beginScene(camera, lights, enviroments);
 
-#if 0
-        // glm::mat4 transform = glm::translate(glm::mat4(1.0f), square_pos);
-        glm::mat4 scale = glm::translate(glm::mat4(1.0f), glm::vec3(0.1f));
+        // bind shaders
+        // std::dynamic_pointer_cast<cabrium::OpenGLShader>(shader)->bind();
+        // std::dynamic_pointer_cast<cabrium::OpenGLShader>(square_shader)->bind();
+        shader->bind();
+        square_shader->bind();
 
-        for (int i = 0; i < 2; ++i) {
-            glm::vec3 pos(i * 0.1f, 0.0f, 0.0f);
-            glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-            cabrium::Renderer::submit(square_shader, square_va, transform);
-        }
-#endif
-
-#if 0 // 1
-        cabrium::Renderer::submit(square_shader, square_va);
-        cabrium::Renderer::submit(shader, vertex_arr);
-#endif
-
-#if 0 // 2
-        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
-
-        glm::mat4 transform = glm::translate(glm::mat4(1.0f), square_pos) * scale;
-        glm::mat4 transform2 =
-            glm::translate(glm::mat4(1.0f), square_pos + glm::vec3(1.0f)) * scale;
-
-        cabrium::Renderer::submit(square_shader, square_va, transform);
-        cabrium::Renderer::submit(square_shader, square_va, transform2);
-        cabrium::Renderer::submit(shader, vertex_arr);
-#endif
+        std::dynamic_pointer_cast<cabrium::OpenGLShader>(square_shader)
+            ->setUnirform3f("u_color", square_color);
 
         // glm::mat4 transform = glm::translate(glm::mat4(1.0f), square_pos);
         static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+        glm::vec4 square_color = glm::vec4(16.0f, 63.0f, 121.0f, 1.0f) / 255.0f;
         for (int i = 0; i < 20; ++i) {
             for (int j = 0; j < 20; ++j) {
-                glm::vec3 pos(i * 0.105f, j * 0.105f, 0.0f);
+                glm::vec3 pos(i * 0.11f, j * 0.11f, 0.0f);
                 glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos + square_pos) * scale;
                 cabrium::Renderer::submit(square_shader, square_va, transform);
             }
         }
 
         // cabrium::Renderer::submit(square_shader, square_va, transform);
-        // cabrium::Renderer::submit(shader, vertex_arr);
+        cabrium::Renderer::submit(shader, vertex_arr);
 
         cabrium::Renderer::endScene();
     }
 
     bool onKeyPressedEvent(cabrium::KeyPressedEvent &e) { return false; }
 
+    bool onMouseScrolled(cabrium::MouseScrolledEvent &e) {
+
+        // if (cabrium::Input::isKeyPressed(cabrium::key::Up))
+        //     camera_pos.y += camera_move_speed * dt;
+        // else if (cabrium::Input::isKeyPressed(cabrium::key::Down))
+        //     camera_pos.y -= camera_move_speed * dt;
+
+        camera_pos.z += e.getOffsetY();
+
+        return false;
+    }
+
     void onEvent(cabrium::Event &e) override {
         // CBRM_TRACE("DummyLayer::onEvent - event {0}", e);
+
+        cabrium::EventDispatcher dispatcher(e);
+        dispatcher.dispatch<cabrium::MouseScrolledEvent>(
+            std::bind(&DummyLayer::onMouseScrolled, this, _1));
     }
 
     void onImGuiRender() override {
-        // ImGui::Begin("DummyLayer");
-        // ImGui::Text("Hello DummyLayer");
-        // ImGui::End();
+        ImGui::Begin("Coso");
+
+        ImGui::Text("Hello Coso");
+        ImGui::ColorEdit3("SquareColor", glm::value_ptr(square_color));
+
+        ImGui::End();
     }
 
 private:
@@ -268,6 +278,7 @@ private:
     float camera_rotation_speed = 90.0f; // degrees per second
 
     glm::vec3 square_pos{0.0f};
+    glm::vec3 square_color = glm::vec3(16.0f, 63.0f, 121.0f) / 255.0f;
 };
 
 class Sandbox : public cabrium::Application {
