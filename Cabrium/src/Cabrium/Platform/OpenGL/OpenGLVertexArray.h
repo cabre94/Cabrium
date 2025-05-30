@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cabrium/Common/Types.h"
 #include "Cabrium/Render/VertexArray.h"
 
 #include <cstdint>
@@ -15,15 +16,15 @@ public:
     void bind() const override;
     void unbind() const override;
 
-    void addBuffer(const std::shared_ptr<IVertexBuffer> &v_buff);
-    void setIndexBuffer(const std::shared_ptr<IIndexBuffer> &i_buff);
+    void addBuffer(const Ref<IVertexBuffer> &v_buff);
+    void setIndexBuffer(const Ref<IIndexBuffer> &i_buff);
 
-    const std::vector<std::shared_ptr<IVertexBuffer>> &getVextexBuffers() const;
-    const std::shared_ptr<IIndexBuffer> &getIndexBuffer() const;
+    const std::vector<Ref<IVertexBuffer>> &getVextexBuffers() const;
+    const Ref<IIndexBuffer> &getIndexBuffer() const;
 
 private:
-    std::vector<std::shared_ptr<IVertexBuffer>> vertex_buff;
-    std::shared_ptr<IIndexBuffer> index_buff;
+    std::vector<Ref<IVertexBuffer>> vertex_buff;
+    Ref<IIndexBuffer> index_buff;
 
     uint32_t render_id;
 };

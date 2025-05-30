@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cabrium/Common/Types.h"
 #include "Cabrium/Render/RenderAPI.h"
 
 namespace cabrium {
@@ -11,7 +12,7 @@ public:
     // void submit() const override;
     void clear() const override;
     void setClearColor(const glm::vec4 &color) const override;
-    void drawIndexed(const std::shared_ptr<IVertexArray> &va) const override;
+    void drawIndexed(const Ref<IVertexArray> &va) const override;
 };
 
 } // namespace cabrium

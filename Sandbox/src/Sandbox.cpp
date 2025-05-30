@@ -40,7 +40,7 @@ public:
         };
 
         // Vertex buffer
-        std::shared_ptr<cabrium::IVertexBuffer> vertex_buff(
+        cabrium::Ref<cabrium::IVertexBuffer> vertex_buff(
             cabrium::IVertexBuffer::create(vertices, sizeof(vertices)));
         vertex_buff->bind();
 
@@ -108,7 +108,7 @@ public:
         };
 
         square_va = std::unique_ptr<cabrium::IVertexArray>(cabrium::IVertexArray::create());
-        std::shared_ptr<cabrium::IVertexBuffer> square_vb(
+        cabrium::Ref<cabrium::IVertexBuffer> square_vb(
             cabrium::IVertexBuffer::create(square_vertices, sizeof(square_vertices)));
 
         cabrium::BufferLayout square_layout = {{cabrium::ShaderDataType::Vec3, "a_Position"}};
@@ -121,7 +121,7 @@ public:
         // uint32_t square_idx[4] = {0, 1, 2, 3};
         uint32_t square_idx[6] = {0, 1, 2, 2, 3, 0};
 
-        std::shared_ptr<cabrium::IIndexBuffer> square_ib(
+        cabrium::Ref<cabrium::IIndexBuffer> square_ib(
             cabrium::IIndexBuffer::create(square_idx, sizeof(square_idx) / sizeof(uint32_t)));
         square_ib->bind();
         square_va->setIndexBuffer(square_ib);
@@ -262,11 +262,11 @@ public:
     }
 
 private:
-    std::shared_ptr<cabrium::Shader> shader;
-    std::shared_ptr<cabrium::IVertexArray> vertex_arr;
+    cabrium::Ref<cabrium::Shader> shader;
+    cabrium::Ref<cabrium::IVertexArray> vertex_arr;
 
-    std::shared_ptr<cabrium::Shader> square_shader;
-    std::shared_ptr<cabrium::IVertexArray> square_va;
+    cabrium::Ref<cabrium::Shader> square_shader;
+    cabrium::Ref<cabrium::IVertexArray> square_va;
 
     cabrium::OrthographicCamera camera;
 

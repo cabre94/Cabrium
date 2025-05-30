@@ -2,6 +2,8 @@
 
 #include "OpenGLRenderAPI.h"
 
+#include "Cabrium/Common/Types.h"
+
 #include <glad\glad.h>
 
 namespace cabrium {
@@ -20,7 +22,7 @@ void OpenGLRenderAPI::setClearColor(const glm::vec4 &color) const {
     glClearColor(color.r, color.g, color.b, color.a);
 }
 
-void OpenGLRenderAPI::drawIndexed(const std::shared_ptr<IVertexArray> &va) const {
+void OpenGLRenderAPI::drawIndexed(const Ref<IVertexArray> &va) const {
     glDrawElements(GL_TRIANGLES, va->getIndexBuffer()->getIndexCnt(), GL_UNSIGNED_INT, nullptr);
 }
 

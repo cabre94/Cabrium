@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cabrium/Common/Types.h"
 #include "Cabrium/Render/OrthographicCamera.h"
 #include "Cabrium/Render/RenderAPI.h"
 #include "Cabrium/Render/RenderCmd.h"
@@ -14,23 +15,10 @@ class Renderer {
 public:
     static void beginScene(OrthographicCamera &camera);
     static void endScene();
-    static void submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va,
+    static void submit(const Ref<Shader> &shader, Ref<IVertexArray> &va,
                        const glm::mat4 &transform = glm::mat4{1.0f});
 
-    // static void clear();
-
-    // static void setClearColor(glm::vec4 &color);
-
-    // static void drawIndexed(std::shared_ptr<IVertexArray> &va);
-
-    // API getApi()  { return api; }
-
-    // static RenderAPI::API getAPI() { return RenderAPI::getApi(); }
-
 private:
-    // stat
-    // OrthographicCamera &camera;
-
     struct SceneData {
         glm::mat4 view_proj_matrix;
     };

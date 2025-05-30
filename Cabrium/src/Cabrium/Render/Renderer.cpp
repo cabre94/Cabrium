@@ -2,8 +2,8 @@
 
 #include "Renderer.h"
 
+#include "Cabrium/Common/Types.h"
 #include "Cabrium/Platform/OpenGL/OpenGLShader.h"
-
 #include "Cabrium/Render/RenderCmd.h"
 
 namespace cabrium {
@@ -17,7 +17,7 @@ void Renderer::beginScene(OrthographicCamera &camera) {
 
 void Renderer::endScene() {}
 
-void Renderer::submit(const std::shared_ptr<Shader> &shader, std::shared_ptr<IVertexArray> &va,
+void Renderer::submit(const Ref<Shader> &shader, Ref<IVertexArray> &va,
                       const glm::mat4 &transform) {
     shader->bind();
     // one pershader per scene

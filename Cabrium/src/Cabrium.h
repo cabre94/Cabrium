@@ -7,6 +7,7 @@
 #include "Cabrium/Common/Input.h"
 #include "Cabrium/Common/Layer.h"
 #include "Cabrium/Common/Log.h"
+#include "Cabrium/Common/Types.h"
 
 // Events
 #include "Cabrium/Events/AppEvent.h"

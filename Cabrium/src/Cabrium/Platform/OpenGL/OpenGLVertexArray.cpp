@@ -2,6 +2,8 @@
 
 #include "OpenGLVertexArray.h"
 
+#include "Cabrium/Common/Types.h"
+
 #include <glad/glad.h>
 
 namespace cabrium {
@@ -44,7 +46,7 @@ void VertexArray::bind() const { glBindVertexArray(render_id); }
 
 void VertexArray::unbind() const { glBindVertexArray(0); }
 
-void VertexArray::addBuffer(const std::shared_ptr<IVertexBuffer> &v_buff) {
+void VertexArray::addBuffer(const Ref<IVertexBuffer> &v_buff) {
     // FIXME: How to check if layout has been set
     CBRM_CORE_ASSERT(v_buff->getLayout().getElements().size(),
                      "VertexArray::addBuffer vertex buffer has no layout")
@@ -66,18 +68,16 @@ void VertexArray::addBuffer(const std::shared_ptr<IVertexBuffer> &v_buff) {
     vertex_buff.push_back(v_buff);
 }
 
-void VertexArray::setIndexBuffer(const std::shared_ptr<IIndexBuffer> &i_buff) {
+void VertexArray::setIndexBuffer(const Ref<IIndexBuffer> &i_buff) {
     bind();
     i_buff->bind();
 
     index_buff = i_buff;
 }
 
-const std::vector<std::shared_ptr<IVertexBuffer>> &VertexArray::getVextexBuffers() const {
-    return vertex_buff;
-}
+const std::vector<Ref<IVertexBuffer>> &VertexArray::getVextexBuffers() const { return vertex_buff; }
 
-const std::shared_ptr<IIndexBuffer> &VertexArray::getIndexBuffer() const { return index_buff; }
+const Ref<IIndexBuffer> &VertexArray::getIndexBuffer() const { return index_buff; }
 
 } // namespace opengl
 } // namespace cabrium

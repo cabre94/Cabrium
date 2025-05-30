@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Cabrium/Common/Types.h"
 #include "Cabrium/Render/VertexArray.h"
 
 #include <glm/glm.hpp>
@@ -22,7 +23,7 @@ public:
 
     virtual void setClearColor(const glm::vec4 &color) const = 0;
 
-    virtual void drawIndexed(const std::shared_ptr<IVertexArray> &va) const = 0;
+    virtual void drawIndexed(const Ref<IVertexArray> &va) const = 0;
 
     API getApi() const { return api; }
 
