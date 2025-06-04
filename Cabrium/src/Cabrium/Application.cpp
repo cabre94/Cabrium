@@ -8,6 +8,8 @@
 #include "Cabrium/Common/PlatformUtils.h"
 #include "Cabrium/Common/Window.h"
 
+#include "Cabrium/Render/Renderer.h"
+
 #include "Cabrium/Events/EventDispatcher.h"
 
 using namespace std::placeholders;
@@ -22,6 +24,8 @@ Application::Application() {
 
     window = std::unique_ptr<Window>(Window::create());
     window->setEventCallback(std::bind(&Application::onEvent, this, _1));
+
+    Renderer::init();
 
     imgui_layer = new ImGuiLayer();
     pushLayer(imgui_layer);

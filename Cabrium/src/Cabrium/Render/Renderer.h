@@ -13,6 +13,8 @@ namespace cabrium {
 class Renderer {
 
 public:
+    static void init();
+
     static void beginScene(OrthographicCamera &camera);
     static void endScene();
     static void submit(const Ref<Shader> &shader, Ref<IVertexArray> &va,

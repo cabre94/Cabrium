@@ -19,6 +19,8 @@ public:
     // virtual void endScene() const   = 0;
     // virtual void submit() const     = 0;
 
+    virtual void init() const = 0;
+
     virtual void clear() const = 0;
 
     virtual void setClearColor(const glm::vec4 &color) const = 0;

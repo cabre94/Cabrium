@@ -8,6 +8,8 @@ namespace cabrium {
 
 class RenderCmd {
 public:
+    static void init() { render_api->init(); }
+
     static void clear() { render_api->clear(); }
 
     static void setClearColor(const glm::vec4 &color) { render_api->setClearColor(color); }

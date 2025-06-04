@@ -189,8 +189,11 @@ public:
 
         square_shader.reset(cabrium::Shader::create(vertex_src_square, frag_src_square));
 
+        // Texture
         texture_shader.reset(cabrium::Shader::create(vertex_src_texture, frag_src_texture));
-        texture = cabrium::Texture2D::create("assets/textures/Checkerboard.png");
+
+        texture      = cabrium::Texture2D::create("assets/textures/Checkerboard.png");
+        test_texture = cabrium::Texture2D::create("assets/textures/test.png");
 
         texture_shader->bind();
 
@@ -266,6 +269,10 @@ public:
         cabrium::Renderer::submit(texture_shader, square_va,
                                   glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
 
+        test_texture->bind();
+        cabrium::Renderer::submit(texture_shader, square_va,
+                                  glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
+
         // Triangle
         // cabrium::Renderer::submit(shader, vertex_arr);
 
@@ -310,7 +317,7 @@ private:
     cabrium::Ref<cabrium::Shader> square_shader, texture_shader;
     cabrium::Ref<cabrium::IVertexArray> square_va;
 
-    cabrium::Ref<cabrium::Texture> texture;
+    cabrium::Ref<cabrium::Texture> texture, test_texture;
 
     cabrium::OrthographicCamera camera;
 

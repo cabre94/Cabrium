@@ -10,6 +10,8 @@ namespace cabrium {
 
 Renderer::SceneData *Renderer::scene_data = new Renderer::SceneData;
 
+void Renderer::init() { RenderCmd::init(); }
+
 void Renderer::beginScene(OrthographicCamera &camera) {
 
     scene_data->view_proj_matrix = camera.getViewProjectionMatrix();
