@@ -16,7 +16,8 @@ void WindowsWindow::init(const WindowProps &props_) {
 
     data.props = props_;
 
-    CBRM_CORE_INFO("WindowsWindow::init {0} {1} {2}", data.props.title, data.props.width, data.props.height);
+    CBRM_CORE_INFO("WindowsWindow::init {0} {1} {2}", data.props.title, data.props.width,
+                   data.props.height);
 
     // Initialize GLFW in case is not initialized yet
     if (!GLFW_initialized) {
@@ -29,14 +30,13 @@ void WindowsWindow::init(const WindowProps &props_) {
     }
     // TODO: Need to manage multiple windows
 
-    // if (!glfw_init_ok)
-    //     return shutdown();
+    //
+    // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    window = glfwCreateWindow(data.props.width, data.props.height, data.props.title.c_str(), nullptr, nullptr);
+    window = glfwCreateWindow(data.props.width, data.props.height, data.props.title.c_str(),
+                              nullptr, nullptr);
     if (!window) {
         return shutdown();
     }

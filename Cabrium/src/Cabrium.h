@@ -26,6 +26,7 @@
 #include "Cabrium/Render/RenderCmd.h"
 #include "Cabrium/Render/Renderer.h"
 #include "Cabrium/Render/Shader.h"
+#include "Cabrium/Render/Texture.h"
 #include "Cabrium/Render/VertexArray.h"
 
 // ImGui

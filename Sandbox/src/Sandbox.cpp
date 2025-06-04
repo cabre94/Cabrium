@@ -100,18 +100,19 @@ public:
         // -------------------------------------------------------
         // ----------------- Square Vertex Array -----------------
         // -------------------------------------------------------
-        float square_vertices[3 * 4] = {
-            -0.5f, -0.5f, 0.0f, // first 3 vertices
-            0.5f,  -0.5f, 0.0f, //
-            0.5f,  0.5f,  0.0f, //
-            -0.5f, 0.5f,  0.0f, //
+        float square_vertices[5 * 4] = {
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // first 3 vertices
+            0.5f,  -0.5f, 0.0f, 1.0f, 0.0f, //
+            0.5f,  0.5f,  0.0f, 1.0f, 1.0f, //
+            -0.5f, 0.5f,  0.0f, 0.0f, 1.0f, //
         };
 
         square_va = std::unique_ptr<cabrium::IVertexArray>(cabrium::IVertexArray::create());
         cabrium::Ref<cabrium::IVertexBuffer> square_vb(
             cabrium::IVertexBuffer::create(square_vertices, sizeof(square_vertices)));
 
-        cabrium::BufferLayout square_layout = {{cabrium::ShaderDataType::Vec3, "a_Position"}};
+        cabrium::BufferLayout square_layout = {{cabrium::ShaderDataType::Vec3, "a_Position"},
+                                               {cabrium::ShaderDataType::Vec2, "a_TexCoord"}};
 
         square_vb->setLayout(square_layout);
 
@@ -155,9 +156,46 @@ public:
             }
         )";
 
-        /*       square_shader = std::make_unique<cabrium::Shader>(
-                   cabrium::Shader::create(vertex_src_square, frag_src_square));*/
+        std::string vertex_src_texture = R"(
+            #version 330 core
+
+            layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec2 a_TexCoord;
+
+            uniform mat4 view_proj;
+            uniform mat4 transform;
+
+            out vec2 v_TexCoord;
+
+            void main() {
+                v_TexCoord = a_TexCoord;
+                gl_Position = view_proj * transform * vec4(a_Position, 1.0);
+            }
+        )";
+
+        std::string frag_src_texture = R"(
+            #version 330 core
+
+            layout(location = 0) out vec4 color;
+
+            in vec2 v_TexCoord;
+
+            uniform sampler2D u_Texture;
+
+            void main() {
+                color = texture(u_Texture, v_TexCoord);
+            }
+        )";
+
         square_shader.reset(cabrium::Shader::create(vertex_src_square, frag_src_square));
+
+        texture_shader.reset(cabrium::Shader::create(vertex_src_texture, frag_src_texture));
+        texture = cabrium::Texture2D::create("assets/textures/Checkerboard.png");
+
+        texture_shader->bind();
+
+        std::dynamic_pointer_cast<cabrium::OpenGLShader>(texture_shader)
+            ->setUnirform1i("u_Texture", 0); // texture slot = 0
     }
 
     void onUpdate(cabrium::DeltaTime dt) override {
@@ -224,8 +262,12 @@ public:
             }
         }
 
-        // cabrium::Renderer::submit(square_shader, square_va, transform);
-        cabrium::Renderer::submit(shader, vertex_arr);
+        texture->bind();
+        cabrium::Renderer::submit(texture_shader, square_va,
+                                  glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
+
+        // Triangle
+        // cabrium::Renderer::submit(shader, vertex_arr);
 
         cabrium::Renderer::endScene();
     }
@@ -265,8 +307,10 @@ private:
     cabrium::Ref<cabrium::Shader> shader;
     cabrium::Ref<cabrium::IVertexArray> vertex_arr;
 
-    cabrium::Ref<cabrium::Shader> square_shader;
+    cabrium::Ref<cabrium::Shader> square_shader, texture_shader;
     cabrium::Ref<cabrium::IVertexArray> square_va;
+
+    cabrium::Ref<cabrium::Texture> texture;
 
     cabrium::OrthographicCamera camera;
 
